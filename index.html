@@ -594,6 +594,7 @@
   @media (prefers-reduced-motion:reduce){ .ice-hint{animation:none} }
   @media (max-width:560px){ .ice-hint{font-size:12px;padding:8px 12px;left:12px} }
   .pg-ice .pr-zoom img{aspect-ratio:1/1;object-fit:cover}
+  .pp-3d.pp-3d-in{padding:0;border-radius:0;background:none;box-shadow:none;gap:10px;margin-top:6px}
 </style>
 </head>
 <body>
@@ -1069,6 +1070,7 @@
       <p><strong>My answer:</strong> a product that is both ergonomic and precise, for icing beautiful designs that are:</p>
       <ul class="pr-list"><li>No-mess and reusable</li><li>Fun, with little preparation</li><li>Easy on the joints, thanks to the squeegee tool’s ergonomic, hand-holding form</li><li>Efficient and time-saving</li></ul>
       <p>With the squeegee tool, the icing spreads across the stencil in a few quick movements. Lift the stencil off the pan to reveal the designs.</p>
+      [[MODEL3D]]
     </div></li>
     <li class="pr-step"><span class="pr-num" aria-hidden="true">05</span><div class="pr-body">
       <h3>First renders</h3>
@@ -1348,8 +1350,18 @@
           </div>
           <p>${d.reference.note}</p>
         </section>` : ''}
-        ${d.process ? d.process.replace('[[SKETCHES]]', d.sketches ? `<div class="sk-grid pr-sk${d.sketches.length > 3 ? ' pr-sk5' : ''}">${d.sketches.map(([src, cap, alt], i) => `<button class="dr-item" type="button" data-sketch="${i}"><img src="${src}" alt="${esc(alt)}" loading="lazy"><span>${cap}</span></button>`).join('')}</div>` : '') : ''}
-        ${d.model ? `<section class="pp-3d jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="3D model">
+        ${d.process ? d.process.replace('[[MODEL3D]]', d.model ? `<section class="pp-3d pp-3d-in" aria-label="3D model">
+          <h4>3D model</h4>
+          <p>Drag to turn it, and scroll or pinch to zoom. ${d.modelNote || ''}</p>
+          <div class="m3-tabs" role="tablist" aria-label="Choose a part"${d.model.length < 2 ? ' hidden' : ''}>${d.model.map((m, i) => `<button type="button" role="tab" data-part="${i}" aria-selected="${i === 0}">${m.name}</button>`).join('')}</div>
+          <div class="m3-stage">
+            <canvas tabindex="0" aria-label="Interactive 3D model of ${esc(d.title)}. Use the arrow keys to turn it and plus or minus to zoom."></canvas>
+            <button class="m3-reset" type="button">Reset view</button>
+            <p class="m3-fallback">3D preview isn’t available in this browser.</p>
+          </div>
+          <p class="m3-size" aria-live="polite">${d.model[0].note}</p>
+        </section>` : '').replace('[[SKETCHES]]', d.sketches ? `<div class="sk-grid pr-sk${d.sketches.length > 3 ? ' pr-sk5' : ''}">${d.sketches.map(([src, cap, alt], i) => `<button class="dr-item" type="button" data-sketch="${i}"><img src="${src}" alt="${esc(alt)}" loading="lazy"><span>${cap}</span></button>`).join('')}</div>` : '') : ''}
+        ${d.model && !(d.process && d.process.includes('[[MODEL3D]]')) ? `<section class="pp-3d jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="3D model">
           <h2>3D model</h2>
           <p>Drag to turn it, and scroll or pinch to zoom. ${d.modelNote || ''}</p>
           <div class="m3-tabs" role="tablist" aria-label="Choose a part"${d.model.length < 2 ? ' hidden' : ''}>${d.model.map((m, i) => `<button type="button" role="tab" data-part="${i}" aria-selected="${i === 0}">${m.name}</button>`).join('')}</div>

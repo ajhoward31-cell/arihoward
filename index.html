@@ -1070,27 +1070,31 @@
       <p><strong>My answer:</strong> a product that is both ergonomic and precise, for icing beautiful designs that are:</p>
       <ul class="pr-list"><li>No-mess and reusable</li><li>Fun, with little preparation</li><li>Easy on the joints, thanks to the squeegee tool’s ergonomic, hand-holding form</li><li>Efficient and time-saving</li></ul>
       <p>With the squeegee tool, the icing spreads across the stencil in a few quick movements. Lift the stencil off the pan to reveal the designs.</p>
-      [[MODEL3D]]
     </div></li>
     <li class="pr-step"><span class="pr-num" aria-hidden="true">05</span><div class="pr-body">
+      <h3>First 3D prototypes</h3>
+      <p>These were my first prototypes of the design as 3D models. I modeled each part in Rhino to test its form and fit before making anything physical: the stencil frame, the squeegee tool, a corner of the frame and the pieces laid out for 3D printing.</p>
+      [[MODEL3D]]
+    </div></li>
+    <li class="pr-step"><span class="pr-num" aria-hidden="true">06</span><div class="pr-body">
       <h3>First renders</h3>
       <figure class="pr-fig"><button type="button" class="pr-zoom" data-lb="renders" aria-label="View larger: Six first renders: the muffin tin, the tin with the mint frame, the tin with frame and stencil, an exploded side view, the stencil frame from the side, and the assembled stencil"><img src="__renders__" alt="Six first renders: the muffin tin, the tin with the mint frame, the tin with frame and stencil, an exploded side view, the stencil frame from the side, and the assembled stencil" loading="lazy"></button></figure>
     </div></li>
-    <li class="pr-step"><span class="pr-num" aria-hidden="true">06</span><div class="pr-body">
+    <li class="pr-step"><span class="pr-num" aria-hidden="true">07</span><div class="pr-body">
       <h3>Testing</h3>
       <figure class="pr-fig"><button type="button" class="pr-zoom" data-lb="test" aria-label="View larger: Six testing photos: icing spread over a yellow stencil with a purple squeegee, then lifted to show flower-shaped icing on the cupcakes"><img src="__test__" alt="Six testing photos: icing spread over a yellow stencil with a purple squeegee, then lifted to show flower-shaped icing on the cupcakes" loading="lazy"></button><figcaption>Testing a prototype: spreading icing over the stencil with the squeegee, then lifting it to reveal the designs.</figcaption></figure>
       <h4>Prototype icing test</h4>
       <p>Real cupcakes iced through the prototype stencil: a few strokes left clean floral shapes in chocolate icing.</p>
       <div class="pg-grid pg-two pg-ice"><figure class="pg-tile"><button type="button" class="pr-zoom" data-lb="icing1" aria-label="View larger: A cupcake held in hand, topped with a chocolate-iced tulip design made with the stencil"><img src="__icing1__" alt="A cupcake held in hand, topped with a chocolate-iced tulip design made with the stencil" loading="lazy"></button><figcaption>Tulip design</figcaption></figure><figure class="pg-tile"><button type="button" class="pr-zoom" data-lb="icing2" aria-label="View larger: A cupcake held in hand, topped with a chocolate-iced four-petal flower made with the stencil"><img src="__icing2__" alt="A cupcake held in hand, topped with a chocolate-iced four-petal flower made with the stencil" loading="lazy"></button><figcaption>Four-petal flower</figcaption></figure></div>
     </div></li>
-    <li class="pr-step"><span class="pr-num" aria-hidden="true">07</span><div class="pr-body">
+    <li class="pr-step"><span class="pr-num" aria-hidden="true">08</span><div class="pr-body">
       <h3>Breakdown</h3>
       <p>With four simple components, the design is complete and ready to frost.</p>
       <div class="pr-break pr-break-wide">
         <figure class="pr-fig"><button type="button" class="pr-zoom" data-lb="breakdown" aria-label="View larger: Labeled exploded view of the stencil, the stencil frame, the muffin tin and the squeegee"><img src="__breakdown__" alt="Labeled exploded view of the stencil, the stencil frame, the muffin tin and the squeegee" loading="lazy"></button></figure>
       </div>
     </div></li>
-    <li class="pr-step"><span class="pr-num" aria-hidden="true">08</span><div class="pr-body">
+    <li class="pr-step"><span class="pr-num" aria-hidden="true">09</span><div class="pr-body">
       <h3>Final product</h3>
       <div class="pr-final"><div class="pr-final-text">
         <p>Arthritis causes an overall lack of mobility in the joints, which gets in the way of fine-motor work like icing cupcakes.</p>
@@ -1351,7 +1355,7 @@
           <p>${d.reference.note}</p>
         </section>` : ''}
         ${d.process ? d.process.replace('[[MODEL3D]]', d.model ? `<section class="pp-3d pp-3d-in" aria-label="3D model">
-          <h4>3D model</h4>
+          <h4>Interactive 3D models</h4>
           <p>Drag to turn it, and scroll or pinch to zoom. ${d.modelNote || ''}</p>
           <div class="m3-tabs" role="tablist" aria-label="Choose a part"${d.model.length < 2 ? ' hidden' : ''}>${d.model.map((m, i) => `<button type="button" role="tab" data-part="${i}" aria-selected="${i === 0}">${m.name}</button>`).join('')}</div>
           <div class="m3-stage">

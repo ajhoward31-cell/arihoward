@@ -1581,10 +1581,41 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       for (const c of cherries) {
         if (!reduce) { c.x += c.speed / 60; if (c.x > 1.1) c.x = -.1; if (c.x < -.1) c.x = 1.1; }
         const x = c.x * W, y = BASE + 24 + (H - BASE - 40) * c.depth + Math.sin(t * .7 + c.ph) * 7;
-        g.save(); g.translate(x, y); g.rotate(c.tilt + Math.sin(t * .5 + c.ph) * .22);
+        c.px = x; c.py = y;
+        const now = performance.now();
+        if (c.popped) { if (now < c.back) continue; c.popped = false; c.born = now; }   // grow back after a pause
+        const k = c.born ? Math.min(1, (now - c.born) / 650) : 1, sc = k < 1 ? 1 - Math.pow(1 - k, 3) * (1 - .15 * Math.sin(k * 9)) : 1;
+        g.save(); g.translate(x, y); g.rotate(c.tilt + Math.sin(t * .5 + c.ph) * .22); g.scale(sc, sc);
         drawCherry(c);
         g.restore();
       }
+      // pop bursts: an expanding ring plus little droplets
+      for (let k = pops.length - 1; k >= 0; k--) {
+        const p = pops[k], a = (performance.now() - p.t0) / 420; if (a >= 1) { pops.splice(k, 1); continue; }
+        g.save(); g.globalAlpha = (1 - a) * .9;
+        g.beginPath(); g.arc(p.x, p.y, p.r * (1 + a * 1.1), 0, Math.PI * 2); g.lineWidth = 3 * (1 - a) + .6; g.strokeStyle = 'rgba(255,255,255,.95)'; g.stroke(); g.lineWidth = 1.4 * (1 - a) + .3; g.strokeStyle = rgba(p.c, .9, .15); g.stroke();
+        for (const d of p.bits) { const dd = p.r * (.9 + a * 2.2); g.beginPath(); g.arc(p.x + Math.cos(d.a) * dd, p.y + Math.sin(d.a) * dd, d.s * 1.4 * (1 - a * .6), 0, Math.PI * 2); g.fillStyle = rgba(p.c, .95, .25); g.fill(); }
+        g.restore();
+      }
+    }
+    const pops = []; window.__bubbles = cherries;
+    function popSound(r) {
+      const a = window.sharedAC && window.sharedAC(); if (!a) return; const t = a.currentTime;
+      const n = a.createBuffer(1, Math.floor(a.sampleRate * .04), a.sampleRate), d = n.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3);
+      const src = a.createBufferSource(), f = a.createBiquadFilter(), ng = a.createGain(); src.buffer = n; f.type = 'bandpass'; f.frequency.value = 2400; f.Q.value = .9; ng.gain.value = .22;
+      src.connect(f).connect(ng).connect(a.destination); src.start(t);
+      const o = a.createOscillator(), og = a.createGain(), f0 = 900 - r * 18 + Math.random() * 120; o.type = 'sine';
+      o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f0 * 2.2, t + .05);
+      og.gain.setValueAtTime(.0001, t); og.gain.exponentialRampToValueAtTime(.16, t + .006); og.gain.exponentialRampToValueAtTime(.0001, t + .09);
+      o.connect(og).connect(a.destination); o.start(t); o.stop(t + .1);
+      if (window.__musicDuck) window.__musicDuck(.55, .25);
+    }
+    const bubbleAt = (x, y) => { for (const c of cherries) if (!c.popped && c.px != null && Math.hypot(x - c.px, y - c.py) < c.r + 8) return c; return null; };
+    function popBubble(c) {
+      c.popped = true; c.back = performance.now() + 2200 + Math.random() * 2600; c.born = 0;
+      pops.push({ x: c.px, y: c.py, r: c.r, c: c.c, t0: performance.now(), bits: Array.from({ length: 7 }, (_, i) => ({ a: i / 7 * Math.PI * 2 + Math.random() * .5, s: 1.2 + Math.random() * 1.8 })) });
+      popSound(c.r);
     }
 
     const surfaceAt = (x, t) => { const f = Math.max(0, Math.min(N - 1.001, x / W * (N - 1))), i = Math.floor(f), k = f - i; return surfaceY(i, t, false) * (1 - k) + surfaceY(i + 1, t, false) * k; };
@@ -1663,14 +1694,16 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     let held = null, hist = [];
     addEventListener('pointerdown', e => {
       if (reduce || e.button > 0) return;
-      const c = cubeAt(e.clientX, e.clientY); if (!c || overUI(e.clientX, e.clientY)) return;
+      const c = cubeAt(e.clientX, e.clientY);
+      if (!c) { const b = !overUI(e.clientX, e.clientY) && bubbleAt(e.clientX, e.clientY); if (b) { e.preventDefault(); popBubble(b); } return; }
+      if (overUI(e.clientX, e.clientY)) return;
       e.preventDefault(); held = c; c.mode = 'held'; c.wet = false; c.grabDX = c.px - e.clientX; c.grabDY = c.py - e.clientY; hist = [[e.clientX, e.clientY, performance.now()]];
       if (c.py > surfaceAt(c.px, performance.now() / 1000) - c.s) splash(2.5, c.px);   // lifting it out makes a little splash
       document.documentElement.style.userSelect = 'none'; document.documentElement.classList.add('ice-held');
     }, true);
     addEventListener('pointermove', e => {
       if (held) { held.px = e.clientX + held.grabDX; held.py = e.clientY + held.grabDY; hist.push([e.clientX, e.clientY, performance.now()]); if (hist.length > 6) hist.shift(); held.ang += .02; return; }
-      const c = cubeAt(e.clientX, e.clientY), on = c && !overUI(e.clientX, e.clientY);
+      const c = cubeAt(e.clientX, e.clientY) || bubbleAt(e.clientX, e.clientY), on = c && !overUI(e.clientX, e.clientY);
       document.documentElement.classList.toggle('ice-hover', !!on);
     });
     const release = () => {

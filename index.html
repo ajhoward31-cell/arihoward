@@ -615,9 +615,11 @@
   .pg-eva .pr-zoom img{aspect-ratio:3/4;object-fit:cover;padding:0}
   .pg-two .pg-dir:last-child:nth-child(odd){grid-column:1/-1;width:calc(50% - 6px);justify-self:center}
   .rd-view .pr-zoom img{aspect-ratio:935/1152;object-fit:contain;background:#fff;max-height:78vh;padding:0}
-  .rd-view{max-width:620px;margin-inline:auto}
-  .rd-bar{display:flex;align-items:center;gap:8px;margin-top:10px}
-  .rd-tabs{display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;padding:4px 2px;scrollbar-width:thin;flex:1}
+  .rd-view{max-width:min(620px,100%);width:100%;min-width:0;margin-inline:auto;box-sizing:border-box}
+  .rd-view .pr-zoom{display:block;width:100%}
+  .rd-view .pr-zoom img{width:100%;height:auto}
+  .rd-bar{display:flex;align-items:center;gap:8px;margin-top:10px;min-width:0;max-width:100%}
+  .rd-tabs{position:relative;display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;padding:4px 2px;scrollbar-width:thin;flex:1 1 0;min-width:0}
   .rd-tabs button{flex:none;min-width:34px;height:34px;border-radius:99px;border:1.5px solid #fff;background:rgba(255,255,255,.65);font:600 13px/1 var(--font);color:var(--ink-soft);cursor:pointer}
   .rd-tabs button[aria-selected="true"]{background:#fff;color:var(--accent);box-shadow:0 3px 10px color-mix(in srgb,var(--deep) 35%,transparent)}
   .rd-arrow{flex:none;width:36px;height:36px;border-radius:50%;border:1.5px solid #fff;background:rgba(255,255,255,.75);font:700 20px/1 var(--font);color:var(--ink);cursor:pointer}
@@ -1785,8 +1787,11 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     const t = tabs[i], img = v.querySelector('.pr-zoom img');
     img.src = t.dataset.rd; img.alt = img.alt.replace(/page \d+/, 'page ' + t.dataset.n);
     tabs.forEach(o => o.setAttribute('aria-selected', o === t)); v.querySelector('.rd-n').textContent = t.dataset.n;
-    t.scrollIntoView({ block: 'nearest', inline: 'center' });
+    rdCenter(t);
   });
+  function rdCenter(t) { const strip = t.parentElement; strip.scrollLeft = t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2; }
+  new MutationObserver(() => document.querySelectorAll('.rd-tabs:not([data-c])').forEach(st => { st.dataset.c = 1; const t = st.querySelector('[aria-selected="true"]'); if (t) requestAnimationFrame(() => rdCenter(t)); }))
+    .observe(document.body, { childList: true, subtree: true });
   /* ---------- drawings page: add images to DRAWINGS as [src, caption] ---------- */
   const DRAWINGS = [["img/76c18467324c.jpg", "Fruitful Remote: a new TV remote designed as an apple, in red, green and purple", "wide"], ["img/cf9833bcccfe.jpg", "Ellipsoid Study: glossy ellipsoids and spheres in pink, green, purple and blue, each drawn over its construction axes", "wide"], {title: "Fruitful Playhouse", note: "A sketch of a potential playground piece.", tabs: [["img/3fa768cebe35.jpg", "Layers and grape alternative", "Fruitful Playhouse: a sketch of a potential playground piece, a crawl-in fruit playhouse with a seed to sit on, layers held together by screws, a back view and a grape alternative"], ["img/74ea3b7cc075.jpg", "Ideation sketches", "Fruitful Playhouse ideation: a page of quick line sketches of playground pieces, including a slide, a bouncing apple, a fruit tunnel, a cheese-wedge climber and a hanging seat"], ["img/cc3b05b5e6fc.jpg", "Front view", "Fruitful Playhouse: front view, with a form that imitates a soft mango and stem options with a shower nozzle or leaves"], ["img/adc042f61b64.jpg", "On the playground", "Fruitful Playhouse: the piece on a playground with a child for scale, tinted windows and a hole to crawl into the secondary part"]]}, ["img/818805f771fb.jpg", "Copy the Master: a drawing assignment where I replicated another artist’s rendering technique, shown with orange earbuds with a faceted body and a direction readout", "wide"]];
   (function(){

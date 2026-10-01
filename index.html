@@ -511,6 +511,13 @@
   .sk-grid .dr-item{margin:0;box-shadow:0 8px 22px color-mix(in srgb,var(--deep) 30%,transparent);cursor:zoom-in}
   .sk-grid .dr-item img{aspect-ratio:4/3;object-fit:contain;background:#fff}
   @media (min-width:820px){ .project-page > .pp-sketches{grid-column:1 / -1;grid-row:6;padding:24px 26px 26px} .pp-sketches h2{font-size:22px} .sk-grid{gap:20px;grid-template-columns:repeat(3,minmax(0,1fr))} }
+  .dr-group{cursor:default}
+  .dr-group:hover{transform:none}
+  .dr-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 10px 8px;background:#fff}
+  .dr-tabs button{font:600 13px/1 var(--serif);padding:8px 12px;border-radius:99px;border:1.5px solid #f3e6ff;background:#faf5ff;color:var(--ink-soft);cursor:pointer}
+  .dr-tabs button[aria-selected="true"]{background:#fff;color:#c2185b;font-style:italic;border-color:#ffc4dd;box-shadow:0 3px 10px rgba(255,111,168,.25)}
+  .dr-open{display:block;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in}
+  .dr-group .dr-cur{font-style:normal;color:#b0a3c4}
   .dr-grid{columns:2 160px;column-gap:14px}
   .dr-grid:empty{display:none}
   .dr-item{break-inside:avoid;margin:0 0 14px;padding:0;border:2px solid #fff;border-radius:16px;overflow:hidden;background:#fffdf9;display:block;width:100%;
@@ -1751,12 +1758,24 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
 
 
   /* ---------- drawings page: add images to DRAWINGS as [src, caption] ---------- */
-  const DRAWINGS = [["img/76c18467324c.jpg", "Fruitful Remote: a new TV remote designed as an apple, in red, green and purple", "wide"], ["img/cf9833bcccfe.jpg", "Ellipsoid Study: glossy ellipsoids and spheres in pink, green, purple and blue, each drawn over its construction axes", "wide"], ["img/3fa768cebe35.jpg", "Fruitful Playhouse: a sketch of a potential playground piece, a crawl-in fruit playhouse with a seed to sit on, layers held together by screws, a back view and a grape alternative", "wide"], ["img/cc3b05b5e6fc.jpg", "Fruitful Playhouse: front view, with a form that imitates a soft mango and stem options with a shower nozzle or leaves", "wide"], ["img/adc042f61b64.jpg", "Fruitful Playhouse: the piece on a playground with a child for scale, tinted windows and a hole to crawl into the secondary part", "wide"]];
+  const DRAWINGS = [["img/76c18467324c.jpg", "Fruitful Remote: a new TV remote designed as an apple, in red, green and purple", "wide"], ["img/cf9833bcccfe.jpg", "Ellipsoid Study: glossy ellipsoids and spheres in pink, green, purple and blue, each drawn over its construction axes", "wide"], {title: "Fruitful Playhouse", note: "A sketch of a potential playground piece.", tabs: [["img/3fa768cebe35.jpg", "Layers and grape alternative", "Fruitful Playhouse: a sketch of a potential playground piece, a crawl-in fruit playhouse with a seed to sit on, layers held together by screws, a back view and a grape alternative"], ["img/cc3b05b5e6fc.jpg", "Front view", "Fruitful Playhouse: front view, with a form that imitates a soft mango and stem options with a shower nozzle or leaves"], ["img/adc042f61b64.jpg", "On the playground", "Fruitful Playhouse: the piece on a playground with a child for scale, tinted windows and a hole to crawl into the secondary part"]]}];
   (function(){
     const grid = document.getElementById('dr-grid'), empty = document.getElementById('dr-empty');
     const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lb-img'), lbCap = document.getElementById('lb-cap');
     let opener = null;
-    DRAWINGS.forEach(([src, cap, size], i) => {
+    DRAWINGS.forEach((item, i) => {
+      if (!Array.isArray(item)) {          // a drawing project with several tabs
+        const f = document.createElement('figure'); f.className = 'dr-item dr-group dr-wide';
+        f.innerHTML = `<div class="dr-tabs" role="tablist" aria-label="${item.title} views">${item.tabs.map((t, k) => `<button type="button" role="tab" aria-selected="${k === 0}">${t[1]}</button>`).join('')}</div>
+          <button type="button" class="dr-open" aria-label="View larger"><img src="${item.tabs[0][0]}" alt="${item.tabs[0][2]}"></button>
+          <span><b>${item.title}</b> · ${item.note} <i class="dr-cur">${item.tabs[0][1]}</i></span>`;
+        let cur = 0; const img = f.querySelector('img'), lab = f.querySelector('.dr-cur'), tb = f.querySelectorAll('[role=tab]');
+        tb.forEach((b, k) => b.onclick = () => { cur = k; img.src = item.tabs[k][0]; img.alt = item.tabs[k][2]; lab.textContent = item.tabs[k][1]; tb.forEach((o, j) => o.setAttribute('aria-selected', j === k)); });
+        const op = f.querySelector('.dr-open');
+        op.onclick = () => { opener = op; lbImg.src = item.tabs[cur][0]; lbImg.alt = item.tabs[cur][2]; lbCap.textContent = item.tabs[cur][2]; lb.hidden = false; lb.querySelector('.lb-close').focus(); };
+        grid.appendChild(f); return;
+      }
+      const [src, cap, size] = item;
       const b = document.createElement('button'); b.type = 'button'; b.className = 'dr-item' + (size === 'wide' ? ' dr-wide' : '');
       b.innerHTML = `<img src="${src}" alt="${cap}" loading="lazy">${cap ? `<span>${cap}</span>` : ''}`;
       b.onclick = () => { opener = b; lbImg.src = src; lbImg.alt = cap; lbCap.textContent = cap; lb.hidden = false; lb.querySelector('.lb-close').focus(); };

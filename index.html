@@ -518,6 +518,8 @@
   .dr-tabs button[aria-selected="true"]{background:#fff;color:#c2185b;font-style:italic;border-color:#ffc4dd;box-shadow:0 3px 10px rgba(255,111,168,.25)}
   .dr-open{display:block;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in}
   .dr-group .dr-cur{font-style:normal;color:#b0a3c4}
+  .au-head{--tint:#d9f2e6;--deep:#7fcfae}
+  @media (max-width:560px){ nav .tabs{flex-wrap:wrap;row-gap:2px} }
   .dr-grid{columns:2 160px;column-gap:14px}
   .dr-grid:empty{display:none}
   .dr-item{break-inside:avoid;margin:0 0 14px;padding:0;border:2px solid #fff;border-radius:16px;overflow:hidden;background:#fffdf9;display:block;width:100%;
@@ -667,6 +669,7 @@
       <button class="tab" id="tab-aboutme">About</button>
       <button class="tab" id="tab-work">Work</button>
       <button class="tab" id="tab-drawings">Drawings</button>
+      <button class="tab" id="tab-audit">Personal auditing</button>
       <button class="tab" id="tab-resume">Résumé</button>
     </div>
     <div class="me" aria-hidden="true"></div>
@@ -855,6 +858,16 @@
     <p>New drawings are on their way.</p>
   </div>
 </section>
+<section class="drawings-page audit-page" id="audit-page" hidden aria-labelledby="au-title">
+  <button class="back" type="button" id="audit-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Home</button>
+  <header class="dr-head jelly au-head">
+    <h1 id="au-title">Personal auditing</h1>
+  </header>
+  <div class="dr-empty jelly" id="au-empty">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1z"/><path d="M8 5H6a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="M9 12l2 2 4-4"/></svg>
+    <p>Coming soon.</p>
+  </div>
+</section>
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Drawing">
   <button class="lb-close" type="button" aria-label="Close">×</button>
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
@@ -997,7 +1010,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
   /* ---------- float-away page transition ---------- */
   const starWipe = (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const views = () => [document.querySelector('main.wrap'), document.getElementById('project-page'), document.getElementById('about-page'), document.getElementById('resume-page'), document.getElementById('drawings-page')];
+    const views = () => [document.querySelector('main.wrap'), document.getElementById('project-page'), document.getElementById('about-page'), document.getElementById('resume-page'), document.getElementById('drawings-page'), document.getElementById('audit-page')];
     const current = () => views().find(v => v && !v.hidden);
     const pieces = view => {
       const all = [...view.querySelectorAll('.jelly, .section-head, .back, .pp-more > h2, .details')];
@@ -1505,6 +1518,9 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       const key = location.hash.slice(1);
       const about = document.getElementById('about-page');
       const drawings = document.getElementById('drawings-page');
+      const audit = document.getElementById('audit-page');
+      if (key === 'auditing') { audit.hidden = false; drawings.hidden = true; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('audit-back').focus({ preventScroll: true }); return; }
+      audit.hidden = true;
       if (key === 'drawings') { drawings.hidden = false; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('drawings-back').focus({ preventScroll: true }); return; }
       drawings.hidden = true;
       const resume = document.getElementById('resume-page');
@@ -1531,6 +1547,8 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     document.getElementById('tab-aboutme').onclick = () => { location.hash = 'about'; };
     document.getElementById('tab-resume').onclick = () => { location.hash = 'resume'; };
     document.getElementById('tab-drawings').onclick = () => { location.hash = 'drawings'; };
+    document.getElementById('tab-audit').onclick = () => { location.hash = 'auditing'; };
+    document.getElementById('audit-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     document.getElementById('drawings-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     document.getElementById('resume-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     addEventListener('hashchange', () => starWipe(show)); show();
@@ -1843,7 +1861,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     const place = () => { const r = lofi.getBoundingClientRect(); btn.style.right = (innerWidth - r.left + 8) + 'px'; };
     place(); addEventListener('resize', place); new ResizeObserver(place).observe(lofi);
     let on = false, cur = null;
-    const view = () => [...document.querySelectorAll('#project-page, #resume-page, #drawings-page, #about-page')].find(el => !el.hidden) || document.querySelector('main.wrap');
+    const view = () => [...document.querySelectorAll('#project-page, #resume-page, #drawings-page, #audit-page, #about-page')].find(el => !el.hidden) || document.querySelector('main.wrap');
     const SEL = 'h1, h2, h3, h4, p, li, figcaption, dt, dd, .fact, .dr-item > span, .cv-item h3';
     const blocks = () => { const seen = new Set(); return [...view().querySelectorAll(SEL)].filter(el => {
         if (el.closest('[hidden], .gal-stars, .m3-fallback, .ice-hint, .cv-contact, button.music-btn')) return false;

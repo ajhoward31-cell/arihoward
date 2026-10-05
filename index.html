@@ -518,6 +518,15 @@
   .dr-tabs button[aria-selected="true"]{background:#fff;color:#c2185b;font-style:italic;border-color:#ffc4dd;box-shadow:0 3px 10px rgba(255,111,168,.25)}
   .dr-open{display:block;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in}
   .dr-group .dr-cur{font-style:normal;color:#b0a3c4}
+  .pp-obs{border-radius:24px;padding:20px 18px 22px;display:flex;flex-direction:column;gap:12px}
+  .pp-obs h2{margin:0;font:700 19px/1.1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
+  .pp-obs > p{margin:0;font:400 15px/1.5 var(--font);color:var(--ink-soft)}
+  .obs-list{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:12px}
+  .obs-list li{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px 16px 18px;border-radius:20px;border:2px solid #fff;background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--deep) 14%,#fff));box-shadow:0 8px 20px color-mix(in srgb,var(--deep) 22%,transparent), inset 0 2px 0 #fff;transition:transform .3s cubic-bezier(.2,.9,.3,1.4)}
+  .obs-list li:hover{transform:translateY(-4px)}
+  .obs-list b{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;font:700 20px/1 var(--serif);color:#fff;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--deep) 55%,#fff),var(--deep));box-shadow:inset 0 -3px 5px rgba(0,0,0,.14), 0 0 0 3px #fff, 0 4px 10px color-mix(in srgb,var(--deep) 40%,transparent)}
+  .obs-list span{font:500 15.5px/1.45 var(--font);color:#3b1f45}
+  @media (min-width:820px){ .project-page > .pp-obs{grid-column:1 / -1;grid-row:6;padding:26px 30px 30px} .project-page > .pp-obs ~ .pp-quotes{grid-row:7} .pp-obs h2{font-size:22px} .obs-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px} }
   .pp-quotes{border-radius:24px;padding:20px 18px 26px;display:flex;flex-direction:column;gap:18px}
   .pp-quotes h2{margin:0;font:700 19px/1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
   .q-list{display:flex;flex-direction:column;gap:22px;padding:4px 2px}
@@ -1450,6 +1459,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         facts:[['Project','Time and Memory'],['Designed for','Healthcare workers'],['Carries','Clips onto a belt loop'],['Features','A tube-like handle joined to the carabiner slot, and an opening latch'],['Made with','Grey foam, digital sketching and KeyShot renders']],
         groups:[{"name": "Renders", "renders": [[imgOf('.card.medigo'), "Render of MediGo in translucent teal: one opened to show a pill bottle and compartments inside, a second closed behind it", "contain"], ["img/5106e575c92e.jpg", "Render of MediGo in translucent teal on a wooden table, its lid flipped open to show the compartments inside"]]}, {"name": "Foam models", "renders": [["img/051eac360ebf.jpg", "Refined grey foam model of MediGo standing upright, with its wavy handle tube, top connector and front tab", "contain"], ["img/7cb315bcb257.jpg", "A gloved hand carrying the MediGo foam model by its top handle, held at hip height to show its size", "contain"]]}], renders:[], empty:0 },
       bookstore: { title:'Wentworth Bookstore', audit:true, date:'Personal auditing', tags:[], tint:'#ffe1c2', deep:'#f2a45e', accent:'#a04f14', text:'The Wentworth Bookstore is a well-stocked campus store for novelty, academic, and personal needs.</p><p>It’s located in the bottom of Beatty Hall, towards the back of the building. But shouldn’t something so essential for students be found in a more noticeable area?</p><p>With my classmate — Emily Perrotta — I visited the campus store to record how many people entered and left over an hour interval at 9AM, and how long the checkout process took.</p><p><strong>The surprise?</strong> We were the only customers there for the entire hour.', facts:[], renders:[], empty:1, emptyLabel:'Images go here',
+        notes:{ title:'Convenience and quality', intro:'At first observation, three things stuck out to me:', points:['All of the shelves were spread out well, and easy to reach (including my friend who is 60 in).','Sections are organized by novelty, school supplies, and personal needs.','For such a well-organized space, not many people come in here.'] },
         quotes:[['You can find anything you need here, pretty much.','Student','#ffd6e7','#ff6fa8'],['I wish it weren’t in the back of the building.','Classmate','#e4dcff','#9b7df0'],['It’s in the middle of nowhere!','Classmate','#cfeeff','#4fa9e6'],['Usually only five customers come in during my shift.','Cashier','#fff0b0','#e0ae1c'],['Stock is decent, prices could be better.','Student parent','#d3f5e3','#3dbb86'],['It’s overpriced, so I never go in. Also, the time I was looking for it, I got lost.','Friend','#ffe0cc','#f08a4b']] },
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
@@ -1512,6 +1522,11 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <h2>Drawings</h2>
           <p>Ideation sketches from the process. Tap one to see it larger.</p>
           <div class="sk-grid">${d.sketches.map(([src, cap, alt], i) => `<button class="dr-item" type="button" data-sketch="${i}"><img src="${src}" alt="${esc(alt)}" loading="lazy"><span>${cap}</span></button>`).join('')}</div>
+        </section>` : ''}
+        ${d.notes ? `<section class="pp-obs jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.notes.title)}">
+          <h2>${d.notes.title}</h2>
+          <p>${d.notes.intro}</p>
+          <ol class="obs-list">${d.notes.points.map((t, i) => `<li><b aria-hidden="true">${i + 1}</b><span>${t}</span></li>`).join('')}</ol>
         </section>` : ''}
         ${d.quotes ? `<section class="pp-quotes jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="Quotes">
           <h2>What people said</h2>

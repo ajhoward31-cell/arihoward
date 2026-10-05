@@ -529,6 +529,37 @@
   @media (min-width:820px){ .project-page > .pp-obs{grid-column:1 / -1;grid-row:6;padding:26px 30px 30px} .project-page > .pp-obs ~ .pp-quotes{grid-row:7} .pp-obs h2{font-size:22px} .obs-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px} }
   .q-note{margin:6px auto 0;max-width:62ch;padding:14px 18px;border-radius:18px;border:2px solid #fff;background:rgba(255,255,255,.7);font:500 16px/1.5 var(--font);color:#3b1f45;text-align:center;text-wrap:balance}
   .q-note strong{color:#8a2d63}
+  .pp-chart{position:relative;border-radius:24px;padding:20px 18px 24px;display:flex;flex-direction:column;gap:14px}
+  .pp-chart h2{margin:0;font:700 19px/1.1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
+  .ch-wrap{display:grid;gap:18px;padding:18px;border-radius:20px;border:2px solid #fff;background:#fff;box-shadow:0 8px 20px color-mix(in srgb,var(--deep) 18%,transparent)}
+  .ch-hero{margin:0;display:flex;flex-direction:column;gap:6px}
+  .ch-hero b{font:700 clamp(48px,9vw,68px)/1 var(--font);letter-spacing:-.03em;color:#3b1f45;font-variant-numeric:tabular-nums}
+  .ch-hero span{font:500 15px/1.4 var(--font);color:var(--ink-soft);max-width:26ch}
+  .ch-bars{list-style:none;margin:0;padding:0;display:grid;gap:4px;align-content:center}
+  .ch-row{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);align-items:center;gap:12px;padding:7px 6px;border-radius:10px;outline:0;cursor:default}
+  .ch-row:hover,.ch-row:focus-visible{background:#faf5f0}
+  .ch-row:focus-visible{box-shadow:0 0 0 2px var(--hot)}
+  .ch-k{font:500 14px/1.25 var(--font);color:var(--ink-soft);text-align:right}
+  .ch-row.top .ch-k{font-weight:700;color:#3b1f45}
+  .ch-track{display:flex;align-items:center;gap:8px;min-width:0;border-left:1px solid #e6dfe8;padding-right:3.6em;position:relative}
+  .ch-track i{display:block;height:20px;width:var(--w);min-width:2px;border-radius:0 4px 4px 0;background:#9a93a3;transition:width .9s cubic-bezier(.2,.8,.2,1), filter .2s}
+  .ch-row.top .ch-track i{background:#cf6420}
+  .ch-row:hover .ch-track i,.ch-row:focus-visible .ch-track i{filter:brightness(1.1)}
+  .ch-track em{font:600 14px/1 var(--font);font-style:normal;color:#3b1f45;font-variant-numeric:tabular-nums;margin-right:-3.6em;white-space:nowrap}
+  .ch-anim:not(.in) .ch-track i{width:0}
+  .ch-anim .ch-row:nth-child(2) i{transition-delay:.08s}.ch-anim .ch-row:nth-child(3) i{transition-delay:.16s}.ch-anim .ch-row:nth-child(4) i{transition-delay:.24s}.ch-anim .ch-row:nth-child(5) i{transition-delay:.32s}
+  .ch-tip{position:absolute;z-index:5;pointer-events:none;display:flex;flex-direction:column;gap:2px;padding:8px 11px;border-radius:10px;background:#3b1f45;color:#fff;box-shadow:0 8px 18px rgba(59,31,69,.3);white-space:nowrap}
+  .ch-tip b{font:700 16px/1 var(--font);font-variant-numeric:tabular-nums}
+  .ch-tip span{font:500 12px/1.2 var(--font);opacity:.85}
+  @media (min-width:820px){ .project-page > .pp-chart{grid-column:1 / -1;grid-row:6;padding:26px 30px 30px} .project-page > .pp-obs ~ .pp-chart{grid-row:7} .project-page > .pp-quotes ~ .pp-chart{grid-row:8} .pp-chart h2{font-size:22px} .ch-wrap{grid-template-columns:minmax(0,.8fr) minmax(0,2fr);align-items:center;gap:30px;padding:26px 30px} }
+  @media (max-width:480px){ .ch-row{grid-template-columns:minmax(0,7.2em) minmax(0,1fr);gap:8px} .ch-k{font-size:13px} }
+  .ch-tile{display:block;width:fit-content;min-width:min(260px,100%)}
+  .ch-tile .ch-hero{flex-direction:row;align-items:center;gap:16px}
+  .ch-tile .ch-hero b{font-size:clamp(56px,10vw,76px);color:#cf6420}
+  .ch-tile .ch-hero span{display:flex;flex-direction:column;gap:3px;max-width:none}
+  .ch-tile .ch-hero strong{font:700 20px/1.1 var(--font);color:#3b1f45}
+  .ch-hours .ch-track i,.pp-hours .ch-track i{background:#cf6420}
+  @media (min-width:820px){ .project-page > .pp-chart ~ .pp-hours{grid-row:9} .ch-wrap.ch-tile,.ch-wrap.ch-only{grid-template-columns:minmax(0,1fr)} }
   .pp-quotes{border-radius:24px;padding:20px 18px 26px;display:flex;flex-direction:column;gap:18px}
   .pp-quotes h2{margin:0;font:700 19px/1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
   .q-list{display:flex;flex-direction:column;gap:22px;padding:4px 2px}
@@ -1463,6 +1494,8 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       bookstore: { title:'Wentworth Bookstore', audit:true, date:'Personal auditing', tags:[], tint:'#ffe1c2', deep:'#f2a45e', accent:'#a04f14', text:'The Wentworth Bookstore is a well-stocked campus store for novelty, academic, and personal needs.</p><p>It’s located in the bottom of Beatty Hall, towards the back of the building. But shouldn’t something so essential for students be found in a more noticeable area?</p><p>With my classmate — Emily Perrotta — I visited the campus store to record how many people entered and left over an hour interval at 9AM, and how long the checkout process took.</p><p><strong>The surprise?</strong> We were the only customers there for the entire hour.', facts:[], renders:[], empty:1, emptyLabel:'Images go here',
         notes:{ title:'Convenience and quality', intro:'At first observation, three things stuck out to me:', points:['All of the shelves were spread out well, and easy to reach (including my friend who is 60 in).','Sections are organized by novelty, school supplies, and personal needs.','For such a well-organized space, not many people come in here.'] },
         quotes:[['You can find anything you need here, pretty much.','Student','#ffd6e7','#ff6fa8'],['I wish it weren’t in the back of the building.','Classmate','#e4dcff','#9b7df0'],['It’s in the middle of nowhere!','Classmate','#cfeeff','#4fa9e6'],['Usually only five customers come in during my shift.','Cashier','#fff0b0','#e0ae1c'],['Stock is decent, prices could be better.','Student parent','#d3f5e3','#3dbb86'],['It’s overpriced, so I never go in. Also, the time I was looking for it, I got lost.','Friend','#ffe0cc','#f08a4b']],
+        chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason for a visit, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
+        hours:{ title:'Customers per hour', unit:'customers', rows:[['Wednesday, 9–10 AM',2]] },
         quotesNote:'This feedback was helpful in confirming my observations. There were defining reasons explaining the store’s low attendance: <strong>location</strong> and <strong>prices</strong>.' },
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
@@ -1536,8 +1569,34 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <div class="q-list">${d.quotes.map(([t, who, qt, qd], i) => `<figure class="q" style="--qt:${qt};--qd:${qd};--r:${[-1.6, 1.3, -0.9, 1.7][i % 4]}deg;--i:${i}"><blockquote><p>${t}</p></blockquote>${who ? `<figcaption><i aria-hidden="true">${who[0]}</i>${who}</figcaption>` : ''}</figure>`).join('')}</div>
           ${d.quotesNote ? `<p class="q-note">${d.quotesNote}</p>` : ''}
         </section>` : ''}
+        ${d.chart ? `<section class="pp-chart jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.chart.title)}">
+          <h2>${d.chart.title}</h2>
+          <div class="ch-wrap">
+            <p class="ch-hero"><b>${d.chart.lead[0]}</b><span>${d.chart.lead[1]}</span></p>
+            <ul class="ch-bars" role="list">${(m => d.chart.rows.map(([k, v], i) => `<li class="ch-row${i === 0 ? ' top' : ''}" tabindex="0" data-k="${esc(k)}" data-v="${v}%" aria-label="${esc(k)}: ${v}%"><span class="ch-k">${k}</span><span class="ch-track"><i style="--w:${(v / m * 100).toFixed(2)}%"></i><em>${v}%</em></span></li>`).join(''))(Math.max(...d.chart.rows.map(r => r[1])))}</ul>
+          </div>
+          <div class="ch-tip" role="status" hidden><b></b><span></span></div>
+        </section>` : ''}
+        ${d.hours ? `<section class="pp-chart pp-hours jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.hours.title)}">
+          <h2>${d.hours.title}</h2>
+          ${d.hours.rows.length === 1 ? `<div class="ch-wrap ch-tile"><p class="ch-hero"><b>${d.hours.rows[0][1]}</b><span><strong>${d.hours.unit}</strong>${d.hours.rows[0][0]}</span></p></div>`
+          : `<div class="ch-wrap ch-only"><ul class="ch-bars" role="list">${(m => d.hours.rows.map(([k, v]) => `<li class="ch-row" tabindex="0" data-k="${esc(k)}" data-v="${v} ${d.hours.unit}" aria-label="${esc(k)}: ${v} ${d.hours.unit}"><span class="ch-k">${k}</span><span class="ch-track"><i style="--w:${(v / m * 100).toFixed(2)}%"></i><em>${v}</em></span></li>`).join(''))(Math.max(1, ...d.hours.rows.map(r => r[1])))}</ul></div>
+          <div class="ch-tip" role="status" hidden><b></b><span></span></div>`}
+        </section>` : ''}
         <div class="pp-more"><h2>More projects</h2><div class="pp-next">${others}</div></div>`;
       wire(d);
+      page.querySelectorAll('.pp-chart').forEach(ch => {
+        if (!ch.querySelector('.ch-bars')) return;
+        const tip = ch.querySelector('.ch-tip'), tb = tip.querySelector('b'), ts = tip.querySelector('span');
+        const showTip = (row, x, y) => { tb.textContent = row.dataset.v; ts.textContent = row.dataset.k; tip.hidden = false; const r = ch.getBoundingClientRect(); tip.style.left = Math.max(8, Math.min(r.width - tip.offsetWidth - 8, x - r.left + 14)) + 'px'; tip.style.top = (y - r.top - tip.offsetHeight - 12) + 'px'; };
+        ch.querySelectorAll('.ch-row').forEach(row => {
+          row.addEventListener('pointermove', e => showTip(row, e.clientX, e.clientY));
+          row.addEventListener('pointerleave', () => { tip.hidden = true; });
+          row.addEventListener('focus', () => { const b = row.querySelector('i').getBoundingClientRect(); showTip(row, b.right, b.top); });
+          row.addEventListener('blur', () => { tip.hidden = true; });
+        });
+        if (!reduce && 'IntersectionObserver' in window) { ch.classList.add('ch-anim'); const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { ch.classList.add('in'); io2.disconnect(); } }), { threshold: .3 }); io2.observe(ch.querySelector('.ch-bars')); }
+      });
       const ql = page.querySelector('.q-list');
       if (ql && !reduce && 'IntersectionObserver' in window) { ql.classList.add('q-anim'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .35 }); ql.querySelectorAll('.q').forEach(q => io.observe(q)); }
       if (window._m3stop) { window._m3stop(); window._m3stop = null; }

@@ -587,17 +587,17 @@
   .pm-defs{position:absolute;width:0;height:0}
   .pm-room{fill:none;stroke:none}
   .pm-full .pm-room{fill:none}
-  .pm-dot{fill:var(--rb);stroke:none;filter:drop-shadow(0 0 3px rgba(255,255,255,.95)) drop-shadow(0 0 7px var(--rg))}
+  .pm-dot{fill:var(--rn);fill-opacity:.6;stroke:none;filter:drop-shadow(0 0 5px var(--rg))}
   .pm-full .pm-dot{animation:pmDrift 6s ease-in-out infinite alternate;animation-delay:var(--d)}
   .pm-empty .pm-dot{animation:pmGlow 3.6s ease-in-out infinite alternate;animation-delay:var(--d)}
   @keyframes pmDrift{to{transform:translate(var(--dx),var(--dy))}}
-  @keyframes pmGlow{from{opacity:.78}to{opacity:1}}
+  @keyframes pmGlow{from{opacity:.7}to{opacity:1}}
   @media (prefers-reduced-motion:reduce){ .pm-dot{animation:none!important} }
   .pm-num{margin:0;display:flex;align-items:baseline;gap:10px;font:500 15px/1 var(--font);color:var(--ink-soft)}
   .pm-num b{font:700 clamp(44px,8vw,64px)/1 var(--font);letter-spacing:-.03em;color:#3b1f45;font-variant-numeric:tabular-nums}
   .pm-full .pm-num b{color:var(--rn)}
   .pm-key{margin:0;display:flex;align-items:center;justify-content:center;gap:8px;font:500 12.5px/1 var(--font);color:var(--ink-soft)}
-  .pm-key i{width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#ff5fa2 28%,#b81466 100%);box-shadow:0 0 3px #fff, 0 0 7px #ff2f8a}
+  .pm-key i{width:11px;height:11px;border-radius:50%;background:rgba(194,49,127,.6);box-shadow:0 0 5px #ff2f8a}
   .pm-lines{margin:4px auto 0;display:flex;flex-direction:column;gap:6px;text-align:center;font:600 italic clamp(18px,2.2vw,23px)/1.3 var(--serif);color:#3b1f45;text-wrap:balance}
   .pm-lines span:first-child{font:700 12.5px/1.3 var(--font);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#8a2d63;margin-bottom:4px}
   @media (min-width:820px){ .project-page > .pp-poem{grid-column:1 / -1;grid-row:11;padding:26px 30px 34px} .pp-poem h2{font-size:22px} .pm{padding:28px 34px 22px;gap:18px} .pm-rooms{grid-template-columns:1fr 1fr;gap:40px} }

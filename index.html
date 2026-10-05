@@ -584,7 +584,7 @@
   .pm-full .pm-dot{animation:pmDrift 6s ease-in-out infinite alternate;animation-delay:var(--d)}
   .pm-empty .pm-dot{animation:pmGlow 3.6s ease-in-out infinite alternate;animation-delay:var(--d)}
   @keyframes pmDrift{to{transform:translate(var(--dx),var(--dy))}}
-  @keyframes pmGlow{from{opacity:.65}to{opacity:1}}
+  @keyframes pmGlow{from{opacity:.78}to{opacity:1}}
   @media (prefers-reduced-motion:reduce){ .pm-dot{animation:none!important} }
   .pm-num{margin:0;display:flex;align-items:baseline;gap:10px;font:500 15px/1 var(--font);color:rgba(255,255,255,.78)}
   .pm-num b{font:700 clamp(44px,8vw,64px)/1 var(--font);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
@@ -593,6 +593,15 @@
   .pm-lines{margin:4px auto 0;display:flex;flex-direction:column;gap:6px;text-align:center;font:600 italic clamp(18px,2.2vw,23px)/1.3 var(--serif);color:#3b1f45;text-wrap:balance}
   .pm-lines span:first-child{font:700 12.5px/1.3 var(--font);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#8a2d63;margin-bottom:4px}
   @media (min-width:820px){ .project-page > .pp-poem{grid-column:1 / -1;grid-row:11;padding:26px 30px 34px} .pp-poem h2{font-size:22px} .pm{padding:28px 34px 22px;gap:18px} .pm-rooms{grid-template-columns:1fr 1fr;gap:40px} }
+  .pm-head,.pm-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px;margin:0}
+  .pm-head > span:first-child{display:none}
+  .pm-head .pm-name{font-size:16px}
+  .pm-row{padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
+  .pm-time{grid-column:1 / -1;font:700 12.5px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:#ffcf6b}
+  .pm-time br{display:none}
+  .pm-row .pm-num{gap:7px;font-size:13.5px}
+  .pm-row .pm-num b{font-size:clamp(30px,6vw,46px)}
+  @media (min-width:820px){ .pm-head,.pm-row{grid-template-columns:150px minmax(0,340px) minmax(0,340px);gap:10px 44px;justify-content:center;align-items:center} .pm-head > span:first-child{display:block} .pm-head .pm-name{font-size:19px} .pm-time{grid-column:auto;font-size:13.5px;line-height:1.5} .pm-time br{display:inline} .pm-row{padding-top:18px} }
   .pp-quotes{border-radius:24px;padding:20px 18px 26px;display:flex;flex-direction:column;gap:18px}
   .pp-quotes h2{margin:0;font:700 19px/1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
   .q-list{display:flex;flex-direction:column;gap:22px;padding:4px 2px}
@@ -1532,7 +1541,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         map:{ title:'Where it is', src:'img/e4b1cedf6c0b.png', alt:'Campus map of Beatty Hall, building 3, with a red dot toward the back of the building, next to the Nelson Recreation Center and CEIS', cap:'The red dot marks the bookstore, toward the back of Beatty Hall.' },
         chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason for a visit, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
         hours:{ title:'Customer Data', unit:'customers', note:'The average checkout time was approximately <strong>1 minute and fifteen seconds</strong>.', rows:[['Wednesday, 9–10 AM',2],['Thursday, 10–11 AM',1],['Monday, 12–1 PM',3]] },
-        contrast:{ title:'Same floor, same hour', when:'Monday, 12–1 PM · bottom of Beatty Hall', a:['Recreation area','45+','students',45], b:['Wentworth Bookstore','3','customers',3], lines:['Same building. Same floor. Same hour.','More than forty-five students gathered in one room.','Only three walked through the other door.'] },
+        contrast:{ title:'Same floor, same hour', where:'Bottom of Beatty Hall', cols:['Recreation area','Wentworth Bookstore'], units:['students','customers'], rows:[['Wednesday, 9–10 AM',14,'14',2],['Thursday, 10–11 AM',21,'21',1],['Monday, 12–1 PM',45,'45+',3]], lines:['Same building. Same floor. Same hour.','Fourteen, then twenty-one, then more than forty-five gathered in one room.','Two, then one, then three walked through the other door.'] },
         quotesNote:'This feedback was helpful in confirming my observations. There were defining reasons explaining the store’s low attendance: <strong>location</strong> and <strong>prices</strong>.' },
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
@@ -1625,20 +1634,23 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <div class="ch-tip" role="status" hidden><b></b><span></span></div>`}
           ${d.hours.note ? `<p class="q-note">${d.hours.note}</p>` : ''}
         </section>` : ''}
-        ${d.contrast ? (c => { const rnd = (a => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; })(7);
-          const crowd = []; let guard = 0; while (crowd.length < c.a[3] && guard++ < 20000) { const x = 30 + rnd() * 340, y = 30 + rnd() * 200; if (crowd.every(p => Math.hypot(p[0] - x, p[1] - y) > 31)) crowd.push([x, y]); }
-          const few = [[96, 158], [248, 84], [318, 196]].slice(0, c.b[3]);
-          const room = (pts, cls) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="${cls}"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/>${pts.map(([x, y], i) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"/>`).join('')}</svg>`;
+        ${d.contrast ? (c => { const mk = seed => { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
+          const FEW = { 1: [[252, 150]], 2: [[118, 172], [286, 92]], 3: [[96, 158], [248, 84], [318, 196]] };
+          const scatter = (n, rnd) => { const pts = []; let guard = 0; while (pts.length < n && guard++ < 40000) { const x = 30 + rnd() * 340, y = 30 + rnd() * 200; if (pts.every(p => Math.hypot(p[0] - x, p[1] - y) > 31)) pts.push([x, y]); } return pts; };
+          const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/>${pts.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"/>`).join('')}</svg>`;
+          const unit = (u, n) => n === 1 ? u.replace(/s$/, '') : u;
           return `<section class="pp-poem jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(c.title)}">
           <h2>${c.title}</h2>
-          <figure class="pm" role="img" aria-label="${esc(c.a[1] + ' ' + c.a[2] + ' in the ' + c.a[0] + ' and ' + c.b[1] + ' ' + c.b[2] + ' in the ' + c.b[0] + ', ' + c.when)}">
-            <p class="pm-when">${c.when}</p>
-            <div class="pm-rooms">
-              <div class="pm-side pm-full"><span class="pm-name">${c.a[0]}</span>${room(crowd, 'pm-svg')}<p class="pm-num"><b>${c.a[1]}</b>${c.a[2]}</p></div>
-              <div class="pm-side pm-empty"><span class="pm-name">${c.b[0]}</span>${room(few, 'pm-svg')}<p class="pm-num"><b>${c.b[1]}</b>${c.b[2]}</p></div>
-            </div>
+          <div class="pm">
+            <p class="pm-when">${c.where}</p>
+            <div class="pm-head" aria-hidden="true"><span></span><span class="pm-name">${c.cols[0]}</span><span class="pm-name">${c.cols[1]}</span></div>
+            ${c.rows.map(([when, n, label, m], i) => { const rnd = mk(7 + i * 13); return `<figure class="pm-row" role="img" aria-label="${esc(when + ': ' + label + ' ' + c.units[0] + ' in the ' + c.cols[0] + ', ' + m + ' ' + unit(c.units[1], m) + ' in the ' + c.cols[1])}">
+              <figcaption class="pm-time">${when.replace(', ', ', <br>')}</figcaption>
+              <div class="pm-side pm-full">${room(scatter(n, rnd), rnd)}<p class="pm-num"><b>${label}</b>${c.units[0]}</p></div>
+              <div class="pm-side pm-empty">${room(FEW[m] || scatter(m, rnd), rnd)}<p class="pm-num"><b>${m}</b>${unit(c.units[1], m)}</p></div>
+            </figure>`; }).join('')}
             <p class="pm-key"><i></i>one dot is one person</p>
-          </figure>
+          </div>
           <p class="pm-lines">${c.lines.map(l => `<span>${l}</span>`).join('')}</p>
         </section>`; })(d.contrast) : ''}
         <div class="pp-more"><h2>More projects</h2><div class="pp-next">${others}</div></div>`;

@@ -611,6 +611,10 @@
   @media (min-width:820px){ .project-page > .pp-poem{grid-column:1 / -1;grid-row:11;padding:26px 30px 34px} .pp-poem h2{font-size:22px} .pm{padding:28px 34px 22px;gap:18px} .pm-rooms{grid-template-columns:1fr 1fr;gap:40px} }
   .sol-list strong{display:block;margin-bottom:4px;font:700 16px/1.3 var(--font);color:#3b1f45}
   .sol-soon{font-style:italic}
+  .concl{display:flex;flex-direction:column;gap:10px;padding:20px 18px 22px;border-radius:20px;border:2px solid #fff;background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--deep) 14%,#fff));box-shadow:0 8px 20px color-mix(in srgb,var(--deep) 22%,transparent), inset 0 2px 0 #fff;text-align:center}
+  .concl-lead{margin:0;font:600 italic clamp(21px,2.6vw,28px)/1.25 var(--serif);color:#8a2d63;text-wrap:balance}
+  .concl-text{margin:0 auto;max-width:62ch;font:500 15.5px/1.55 var(--font);color:#3b1f45;text-wrap:pretty}
+  @media (min-width:820px){ .project-page > .pp-obs.pp-concl{grid-row:14} .concl{padding:30px 34px 32px;gap:12px} }
   .bias-tag{align-self:flex-start;padding:5px 12px;border-radius:999px;font:700 12px/1.2 var(--font);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:#8a2d63;background:color-mix(in srgb,var(--deep) 22%,#fff);box-shadow:inset 0 1px 0 #fff}
   @media (min-width:820px){ .project-page > .pp-obs.pp-bias{grid-row:13} .bias-list{grid-template-columns:repeat(2,minmax(0,1fr))} }
   .sol-scores{margin:auto 0 0;padding-top:12px;border-top:1px solid color-mix(in srgb,var(--deep) 30%,transparent);display:grid;gap:8px}
@@ -1571,6 +1575,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         map:{ title:'Where it is', src:'img/e4b1cedf6c0b.png', alt:'Campus map of Beatty Hall, building 3, with a red dot toward the back of the building, next to the Nelson Recreation Center and CEIS', cap:'The red dot marks the bookstore, toward the back of Beatty Hall.' },
         chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason for a visit, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
         hours:{ title:'Customer Data', unit:'customers', note:'The average checkout time was approximately <strong>1 minute and fifteen seconds</strong>.', rows:[['Wednesday, 9–10 AM',2],['Thursday, 10–11 AM',1],['Monday, 12–1 PM',3]] },
+        conclusion: {title:'Conclusions', lead:'The Bookstore should be more available for students.', text:'It\u2019s not easy to find, and it can be rather costly. With simple solutions, the issue of its mysterious location can be easily rectified. Perhaps then, more customers will be drawn to it.'},
         bias: {title:'Potential bias', items:[
           ['Asking a friend','As I did ask a friend, I do account for that to be some sort of personal bias. Their opinions are close to mine, so I find it reflective of my own thoughts on the matter.'],
           ['My own bias','As for my own bias, I feel that I was actively looking for problems upon beginning my audit. I had already known that the store ran barren more times than not.']]},
@@ -1705,6 +1710,10 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         ${d.bias ? `<section class="pp-obs pp-bias jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.bias.title)}">
           <h2>${d.bias.title}</h2>
           <ul class="obs-list bias-list">${d.bias.items.map(([h, t]) => `<li><em class="bias-tag">${h}</em><span>${t}</span></li>`).join('')}</ul>
+        </section>` : ''}
+        ${d.conclusion ? `<section class="pp-obs pp-concl jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.conclusion.title)}">
+          <h2>${d.conclusion.title}</h2>
+          <div class="concl"><p class="concl-lead">${d.conclusion.lead}</p><p class="concl-text">${d.conclusion.text}</p></div>
         </section>` : ''}
         <div class="pp-more"><h2>More projects</h2><div class="pp-next">${others}</div></div>`;
       wire(d);

@@ -706,7 +706,7 @@
       <button class="tab" id="tab-aboutme">About</button>
       <button class="tab" id="tab-work">Work</button>
       <button class="tab" id="tab-drawings">Drawings</button>
-      <button class="tab" id="tab-audit">Personal auditing</button>
+      
       <button class="tab" id="tab-resume">Résumé</button>
     </div>
     <div class="me" aria-hidden="true"></div>
@@ -895,23 +895,7 @@
     <p>New drawings are on their way.</p>
   </div>
 </section>
-<section class="drawings-page audit-page" id="audit-page" hidden aria-labelledby="au-title">
-  <button class="back" type="button" id="audit-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Home</button>
-  <header class="dr-head jelly au-head">
-    <h1 id="au-title">Personal auditing</h1>
-  </header>
-  <div class="au-grid" id="au-grid">
-    <button class="au-card jelly" type="button" data-audit="bookstore" style="--tint:#ffe1c2;--deep:#f2a45e">
-      <span class="au-cover" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v15H5.5A1.5 1.5 0 0 0 4 20.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v15h5.5a1.5 1.5 0 0 1 1.5 1.5z"/></svg></span>
-      <span class="au-name">Wentworth Bookstore</span>
-      <small>A well-stocked campus store for novelty, academic, and personal needs.</small>
-    </button>
-  </div>
-  <div class="dr-empty jelly" id="au-empty" hidden>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h6a1 1 0 0 1 1 1v1H8V5a1 1 0 0 1 1-1z"/><path d="M8 5H6a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2"/><path d="M9 12l2 2 4-4"/></svg>
-    <p>Coming soon.</p>
-  </div>
-</section>
+
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Drawing">
   <button class="lb-close" type="button" aria-label="Close">×</button>
   <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
@@ -1448,8 +1432,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         text:'MediGo is a small, IV-bag-inspired carrier for healthcare workers that I made for my Time and Memory project. It clips onto a belt loop, and its tube-like handle connects to a carabiner slot. The idea is that the people who save everyone else’s time get to save a little of their own. I built it in grey foam and rendered it in KeyShot.',
         facts:[['Project','Time and Memory'],['Designed for','Healthcare workers'],['Carries','Clips onto a belt loop'],['Features','A tube-like handle joined to the carabiner slot, and an opening latch'],['Made with','Grey foam, digital sketching and KeyShot renders']],
         groups:[{"name": "Renders", "renders": [[imgOf('.card.medigo'), "Render of MediGo in translucent teal: one opened to show a pill bottle and compartments inside, a second closed behind it", "contain"], ["img/5106e575c92e.jpg", "Render of MediGo in translucent teal on a wooden table, its lid flipped open to show the compartments inside"]]}, {"name": "Foam models", "renders": [["img/051eac360ebf.jpg", "Refined grey foam model of MediGo standing upright, with its wavy handle tube, top connector and front tab", "contain"], ["img/7cb315bcb257.jpg", "A gloved hand carrying the MediGo foam model by its top handle, held at hip height to show its size", "contain"]]}], renders:[], empty:0 },
-      bookstore: { title:'Wentworth Bookstore', audit:true, date:'Personal auditing', tags:[], tint:'#ffe1c2', deep:'#f2a45e', accent:'#a04f14', text:'The Wentworth Bookstore is a well-stocked campus store for novelty, academic, and personal needs.</p><p>It’s located in the bottom of Beatty Hall, towards the back of the building. But shouldn’t something so essential for students be found in a more noticeable area?</p><p>With my classmate — Emily Perrotta — I visited the campus store to record how many people entered and left over an hour interval at 9AM, and how long the checkout process took.</p><p><strong>The surprise?</strong> We were the only customers there for the entire hour.', facts:[], renders:[], empty:1, emptyLabel:'Images go here',
-        quotes:[['You can find anything you need here, pretty much.','Student','#ffd6e7','#ff6fa8'],['I wish it weren’t in the back of the building.','Classmate','#e4dcff','#9b7df0'],['It’s in the middle of nowhere!','Classmate','#cfeeff','#4fa9e6'],['Usually only five customers come in during my shift.','Cashier','#fff0b0','#e0ae1c'],['Stock is decent, prices could be better.','','#d3f5e3','#3dbb86']] },
+
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
     const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -1571,8 +1554,8 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       const about = document.getElementById('about-page');
       const drawings = document.getElementById('drawings-page');
       const audit = document.getElementById('audit-page');
-      if (key === 'auditing') { audit.hidden = false; drawings.hidden = true; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('audit-back').focus({ preventScroll: true }); return; }
-      audit.hidden = true;
+      if (audit && key === 'auditing') { audit.hidden = false; drawings.hidden = true; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('audit-back').focus({ preventScroll: true }); return; }
+      if (audit) audit.hidden = true;
       if (key === 'drawings') { drawings.hidden = false; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('drawings-back').focus({ preventScroll: true }); return; }
       drawings.hidden = true;
       const resume = document.getElementById('resume-page');
@@ -1600,9 +1583,9 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     document.getElementById('tab-aboutme').onclick = () => { location.hash = 'about'; };
     document.getElementById('tab-resume').onclick = () => { location.hash = 'resume'; };
     document.getElementById('tab-drawings').onclick = () => { location.hash = 'drawings'; };
-    document.getElementById('tab-audit').onclick = () => { location.hash = 'auditing'; };
+    if (document.getElementById('tab-audit')) document.getElementById('tab-audit').onclick = () => { location.hash = 'auditing'; };
     document.querySelectorAll('[data-audit]').forEach(b => b.onclick = () => setTimeout(() => { location.hash = b.dataset.audit; }, 200));
-    document.getElementById('audit-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
+    if (document.getElementById('audit-back')) document.getElementById('audit-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     document.getElementById('drawings-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     document.getElementById('resume-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     addEventListener('hashchange', () => starWipe(show)); show();

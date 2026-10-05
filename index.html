@@ -572,34 +572,43 @@
   @media (min-width:820px){ .project-page > .pp-map{grid-column:1 / -1;grid-row:8;padding:26px 30px 28px} .pp-map h2{font-size:22px} .project-page > .pp-map ~ .pp-chart{grid-row:9} .project-page > .pp-map ~ .pp-hours{grid-row:10} }
   .pp-poem{border-radius:24px;padding:20px 18px 26px;display:flex;flex-direction:column;gap:16px}
   .pp-poem h2{margin:0;font:700 19px/1.1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
-  .pm{position:relative;overflow:hidden;margin:0;padding:22px 18px 18px;border-radius:24px;border:2px solid rgba(255,255,255,.75);background:linear-gradient(135deg,#c2317f 0%,#8a45d6 52%,#4763d8 100%);box-shadow:0 16px 34px rgba(138,69,214,.38), inset 0 2px 0 rgba(255,255,255,.45);color:#fff;display:flex;flex-direction:column;gap:14px}
-  .pm::before{content:"";position:absolute;left:16px;right:16px;top:7px;height:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0));pointer-events:none}
+  .pm{position:relative;margin:0;padding:18px 14px 16px;border-radius:22px;border:2px solid #fff;background:linear-gradient(180deg,#fff 0%,#fff9fc 55%,#f6f0ff 100%);box-shadow:0 10px 26px rgba(155,92,245,.16), inset 0 2px 0 #fff;color:#3b1f45;display:flex;flex-direction:column;gap:14px}
+  .pm::before{content:none}
   .pm > *{position:relative}
-  .pm-when{margin:0;text-align:center;font:600 12.5px/1.2 var(--font);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+  .pm-when{margin:0;text-align:center;font:700 12.5px/1.2 var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
   .pm-rooms{display:grid;gap:22px}
   .pm-side{display:flex;flex-direction:column;gap:8px;min-width:0}
-  .pm-name{font:600 italic 19px/1.2 var(--serif);color:#fff}
-  .pm-svg{display:block;width:100%;height:auto;overflow:visible}
-  .pm-room{fill:rgba(255,255,255,.1);stroke:rgba(255,255,255,.6);stroke-width:2}
-  .pm-full .pm-room{fill:rgba(255,255,255,.26)}
-  .pm-dot{fill:#fff4bf;filter:drop-shadow(0 0 6px rgba(255,244,191,.95))}
+  .pm-name{font:600 italic 19px/1.2 var(--serif);color:#8a2d63}
+  .pm-svg{display:block;width:100%;height:auto;overflow:visible;border-radius:6.5%/10%;border:1.5px solid rgba(255,255,255,.95);background:linear-gradient(180deg,rgba(255,255,255,.92) 0%,color-mix(in srgb,var(--rt) 62%,#fff) 42%,var(--rt) 100%);box-shadow:inset 0 5px 6px rgba(255,255,255,.95), inset 0 0 16px 2px rgba(255,255,255,.55), inset 0 -10px 22px color-mix(in srgb,var(--rd) 42%,transparent), 0 10px 24px color-mix(in srgb,var(--rd) 36%,transparent)}
+  .pm-empty .pm-svg{background:linear-gradient(180deg,#fff 0%,color-mix(in srgb,var(--rt) 16%,#fff) 100%);box-shadow:inset 0 5px 6px #fff, inset 0 -8px 18px color-mix(in srgb,var(--rd) 12%,transparent), 0 6px 16px color-mix(in srgb,var(--rd) 16%,transparent)}
+  .pm-row:nth-of-type(2){--rt:#cdb2ff;--rd:#9b5cf5;--rn:#7a3fd6;--rb:url(#pmB1)}
+  .pm-row:nth-of-type(3){--rt:#b0c4ff;--rd:#5d7bea;--rn:#4259cf;--rb:url(#pmB2)}
+  .pm-shine{fill:#fff;opacity:.9}
+  .pm-defs{position:absolute;width:0;height:0}
+  .pm-room{fill:none;stroke:none}
+  .pm-full .pm-room{fill:none}
+  .pm-dot{fill:var(--rb);stroke:rgba(255,255,255,.95);stroke-width:1.6;filter:drop-shadow(0 2px 3px color-mix(in srgb,var(--rn) 45%,transparent))}
   .pm-full .pm-dot{animation:pmDrift 6s ease-in-out infinite alternate;animation-delay:var(--d)}
   .pm-empty .pm-dot{animation:pmGlow 3.6s ease-in-out infinite alternate;animation-delay:var(--d)}
   @keyframes pmDrift{to{transform:translate(var(--dx),var(--dy))}}
   @keyframes pmGlow{from{opacity:.78}to{opacity:1}}
   @media (prefers-reduced-motion:reduce){ .pm-dot{animation:none!important} }
-  .pm-num{margin:0;display:flex;align-items:baseline;gap:10px;font:500 15px/1 var(--font);color:rgba(255,255,255,.9)}
-  .pm-num b{font:700 clamp(44px,8vw,64px)/1 var(--font);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px rgba(59,31,69,.25)}
-  .pm-key{margin:0;display:flex;align-items:center;justify-content:center;gap:8px;font:500 12.5px/1 var(--font);color:rgba(255,255,255,.85)}
-  .pm-key i{width:10px;height:10px;border-radius:50%;background:#fff4bf;box-shadow:0 0 6px rgba(255,244,191,.95)}
+  .pm-num{margin:0;display:flex;align-items:baseline;gap:10px;font:500 15px/1 var(--font);color:var(--ink-soft)}
+  .pm-num b{font:700 clamp(44px,8vw,64px)/1 var(--font);letter-spacing:-.03em;color:#3b1f45;font-variant-numeric:tabular-nums}
+  .pm-full .pm-num b{color:var(--rn)}
+  .pm-key{margin:0;display:flex;align-items:center;justify-content:center;gap:8px;font:500 12.5px/1 var(--font);color:var(--ink-soft)}
+  .pm-key i{width:11px;height:11px;border-radius:50%;border:1.5px solid #fff;background:radial-gradient(circle at 35% 30%,#fff 0%,#ff9cc4 30%,#c2317f 100%);box-shadow:0 2px 4px rgba(194,49,127,.35)}
   .pm-lines{margin:4px auto 0;display:flex;flex-direction:column;gap:6px;text-align:center;font:600 italic clamp(18px,2.2vw,23px)/1.3 var(--serif);color:#3b1f45;text-wrap:balance}
   .pm-lines span:first-child{font:700 12.5px/1.3 var(--font);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#8a2d63;margin-bottom:4px}
   @media (min-width:820px){ .project-page > .pp-poem{grid-column:1 / -1;grid-row:11;padding:26px 30px 34px} .pp-poem h2{font-size:22px} .pm{padding:28px 34px 22px;gap:18px} .pm-rooms{grid-template-columns:1fr 1fr;gap:40px} }
+  .sol-list strong{display:block;margin-bottom:4px;font:700 16px/1.3 var(--font);color:#3b1f45}
+  .sol-soon{font-style:italic}
+  @media (min-width:820px){ .project-page > .pp-obs.pp-sol{grid-row:12} }
   .pm-head,.pm-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px;margin:0}
   .pm-head > span:first-child{display:none}
   .pm-head .pm-name{font-size:16px}
-  .pm-row{padding-top:14px;border-top:1px solid rgba(255,255,255,.3)}
-  .pm-time{grid-column:1 / -1;font:700 12.5px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:#fff4bf}
+  .pm-row{--rt:#ffa9cb;--rd:#ff4f95;--rn:#c2317f;--rb:url(#pmB0);padding-top:14px;border-top:1px solid rgba(138,45,99,.14)}
+  .pm-time{grid-column:1 / -1;font:700 12.5px/1.3 var(--font);letter-spacing:.1em;text-transform:uppercase;color:#8a2d63}
   .pm-time br{display:none}
   .pm-row .pm-num{gap:7px;font-size:13.5px}
   .pm-row .pm-num b{font-size:clamp(30px,6vw,46px)}
@@ -1543,7 +1552,8 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         map:{ title:'Where it is', src:'img/e4b1cedf6c0b.png', alt:'Campus map of Beatty Hall, building 3, with a red dot toward the back of the building, next to the Nelson Recreation Center and CEIS', cap:'The red dot marks the bookstore, toward the back of Beatty Hall.' },
         chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason for a visit, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
         hours:{ title:'Customer Data', unit:'customers', note:'The average checkout time was approximately <strong>1 minute and fifteen seconds</strong>.', rows:[['Wednesday, 9–10 AM',2],['Thursday, 10–11 AM',1],['Monday, 12–1 PM',3]] },
-        contrast:{ title:'Same floor, same hour', where:'Bottom of Beatty Hall', cols:['Recreation area','Wentworth Bookstore'], units:['students','customers'], rows:[['Wednesday, 9–10 AM',14,'14',2],['Thursday, 10–11 AM',21,'21',1],['Monday, 12–1 PM',45,'45+',3]], lines:['Same building. Same floor. Same hour.','Fourteen, then twenty-one, then more than forty-five gathered in one room.','Two, then one, then three walked through the other door.'] },
+        solutions: {title:'Solutions', intro:'', items:[]},
+      contrast:{ title:'Same floor, same hour', where:'Bottom of Beatty Hall', cols:['Recreation area','Wentworth Bookstore'], units:['students','customers'], rows:[['Wednesday, 9–10 AM',14,'14',2],['Thursday, 10–11 AM',21,'21',1],['Monday, 12–1 PM',45,'45+',3]], lines:['Same building. Same floor. Same hour.','Fourteen, then twenty-one, then more than forty-five gathered in one room.','Two, then one, then three walked through the other door.'] },
         quotesNote:'This feedback was helpful in confirming my observations. There were defining reasons explaining the store’s low attendance: <strong>location</strong> and <strong>prices</strong>.' },
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
@@ -1639,11 +1649,12 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         ${d.contrast ? (c => { const mk = seed => { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
           const FEW = { 1: [[252, 150]], 2: [[118, 172], [286, 92]], 3: [[96, 158], [248, 84], [318, 196]] };
           const scatter = (n, rnd) => { const pts = []; let guard = 0; while (pts.length < n && guard++ < 40000) { const x = 30 + rnd() * 340, y = 30 + rnd() * 200; if (pts.every(p => Math.hypot(p[0] - x, p[1] - y) > 31)) pts.push([x, y]); } return pts; };
-          const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/>${pts.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"/>`).join('')}</svg>`;
+          const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/><rect x="20" y="10" width="110" height="9" rx="4.5" class="pm-shine"/><circle cx="141" cy="14.5" r="4" class="pm-shine"/>${pts.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8.5" class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"/>`).join('')}</svg>`;
           const unit = (u, n) => n === 1 ? u.replace(/s$/, '') : u;
           return `<section class="pp-poem jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(c.title)}">
           <h2>${c.title}</h2>
           <div class="pm">
+            <svg class="pm-defs" aria-hidden="true" focusable="false"><defs><radialGradient id="pmB0" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".28" stop-color="#ff8fbb"/><stop offset="1" stop-color="#cf2a78"/></radialGradient><radialGradient id="pmB1" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".28" stop-color="#bd96ff"/><stop offset="1" stop-color="#6f37cf"/></radialGradient><radialGradient id="pmB2" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".28" stop-color="#97adff"/><stop offset="1" stop-color="#3d55cc"/></radialGradient></defs></svg>
             <p class="pm-when">${c.where}</p>
             <div class="pm-head" aria-hidden="true"><span></span><span class="pm-name">${c.cols[0]}</span><span class="pm-name">${c.cols[1]}</span></div>
             ${c.rows.map(([when, n, label, m], i) => { const rnd = mk(7 + i * 13); return `<figure class="pm-row" role="img" aria-label="${esc(when + ': ' + label + ' ' + c.units[0] + ' in the ' + c.cols[0] + ', ' + m + ' ' + unit(c.units[1], m) + ' in the ' + c.cols[1])}">
@@ -1655,6 +1666,11 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           </div>
           <p class="pm-lines">${c.lines.map(l => `<span>${l}</span>`).join('')}</p>
         </section>`; })(d.contrast) : ''}
+        ${d.solutions ? `<section class="pp-obs pp-sol jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.solutions.title)}">
+          <h2>${d.solutions.title}</h2>
+          ${d.solutions.intro ? `<p>${d.solutions.intro}</p>` : ''}
+          ${d.solutions.items.length ? `<ol class="obs-list sol-list">${d.solutions.items.map(([h, t], i) => `<li><b aria-hidden="true">${i + 1}</b><span>${h ? `<strong>${h}</strong>` : ''}${t}</span></li>`).join('')}</ol>` : `<p class="sol-soon">Solutions coming soon.</p>`}
+        </section>` : ''}
         <div class="pp-more"><h2>More projects</h2><div class="pp-next">${others}</div></div>`;
       wire(d);
       page.querySelectorAll('.pp-chart').forEach(ch => {

@@ -563,6 +563,13 @@
   .ch-tile .ch-hero strong{font:700 20px/1.1 var(--font);color:#3b1f45}
   .ch-hours .ch-track i,.pp-hours .ch-track i{background:#cf6420}
   @media (min-width:820px){ .project-page > .pp-chart ~ .pp-hours{grid-row:9} .ch-wrap.ch-tile,.ch-wrap.ch-only{grid-template-columns:minmax(0,1fr)} }
+  .pp-map{border-radius:24px;padding:20px 18px 22px;display:flex;flex-direction:column;gap:12px}
+  .pp-map h2{margin:0;font:700 19px/1.1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
+  .map-fig{margin:0 auto;width:100%;max-width:720px}
+  .map-fig .pr-zoom{display:block;width:100%;padding:0;border:2px solid #fff;border-radius:20px;overflow:hidden;background:#fff;cursor:zoom-in;box-shadow:0 8px 20px color-mix(in srgb,var(--deep) 22%,transparent)}
+  .map-fig .pr-zoom img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;padding:0}
+  .map-fig figcaption{margin-top:10px;text-align:center;font:500 14.5px/1.4 var(--font);color:var(--ink-soft)}
+  @media (min-width:820px){ .project-page > .pp-map{grid-column:1 / -1;grid-row:8;padding:26px 30px 28px} .pp-map h2{font-size:22px} .project-page > .pp-map ~ .pp-chart{grid-row:9} .project-page > .pp-map ~ .pp-hours{grid-row:10} }
   .pp-quotes{border-radius:24px;padding:20px 18px 26px;display:flex;flex-direction:column;gap:18px}
   .pp-quotes h2{margin:0;font:700 19px/1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
   .q-list{display:flex;flex-direction:column;gap:22px;padding:4px 2px}
@@ -1499,6 +1506,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       bookstore: { title:'Wentworth Bookstore', audit:true, date:'Personal auditing', tags:[], tint:'#ffe1c2', deep:'#f2a45e', accent:'#a04f14', text:'The Wentworth Bookstore is a well-stocked campus store for novelty, academic, and personal needs.</p><p>It’s located in the bottom of Beatty Hall, towards the back of the building. But shouldn’t something so essential for students be found in a more noticeable area?</p><p>With my classmate — Emily Perrotta — I visited the campus store to record how many people entered and left over an hour interval at 9AM, and how long the checkout process took.</p><p><strong>The surprise?</strong> We were the only customers there for the entire hour.', facts:[], renders:[["img/00c43d571942.jpg", "Inside the bookstore: racks of Wentworth sweatshirts, shirts and hats with wide, open aisles", "pos-l"], ["img/4a9c5e0af501.jpg", "The Wentworth Bookstore entrance: two wooden doors, one propped open, with a paper sign reading Wentworth Bookstore taped above the window", ""], ["img/6b4866135a42.jpg", "A long, empty aisle through the apparel section of the bookstore", ""], ["img/8982bdec5e4d.jpg", "Textbook shelves beside a Binders and Dividers display of binders and notebooks", ""], ["img/b41efb894232.jpg", "A Writing Instruments wall of pens, pencils and drafting tools, with water bottles and backpacks behind it", ""], ["img/91ec706514f2.jpg", "A shelf with a Wentworth diploma frame, three plush snow leopards and alumni tumblers", ""], ["img/200b5db2703f.jpg", "Wentworth mugs and water bottles beside a grey door with a room sign reading Beatty Hall 8-025A", ""]], empty:0,
         notes:{ title:'Convenience and quality', intro:'At first observation, three things stuck out to me:', points:['All of the shelves were spread out well, and easy to reach (including my friend who is 60 in).','Sections are organized by novelty, school supplies, and personal needs.','For such a well-organized space, not many people come in here.'] },
         quotes:[['You can find anything you need here, pretty much.','Student','#ffd6e7','#ff6fa8'],['I wish it weren’t in the back of the building.','Classmate','#e4dcff','#9b7df0'],['It’s in the middle of nowhere!','Classmate','#cfeeff','#4fa9e6'],['Usually only five customers come in during my shift.','Cashier','#fff0b0','#e0ae1c'],['Stock is decent, prices could be better.','Student parent','#d3f5e3','#3dbb86'],['It’s overpriced, so I never go in. Also, the time I was looking for it, I got lost.','Friend','#ffe0cc','#f08a4b']],
+        map:{ title:'Where it is', src:'img/e4b1cedf6c0b.png', alt:'Campus map of Beatty Hall, building 3, with a red dot toward the back of the building, next to the Nelson Recreation Center and CEIS', cap:'The red dot marks the bookstore, toward the back of Beatty Hall.' },
         chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason for a visit, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
         hours:{ title:'Customer Data', unit:'customers', note:'The average checkout time was approximately <strong>1 minute and fifteen seconds</strong>.', rows:[['Wednesday, 9–10 AM',2],['Thursday, 10–11 AM',1],['Monday, 12–1 PM',3]] },
         quotesNote:'This feedback was helpful in confirming my observations. There were defining reasons explaining the store’s low attendance: <strong>location</strong> and <strong>prices</strong>.' },
@@ -1573,6 +1581,10 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <h2>What people said</h2>
           <div class="q-list">${d.quotes.map(([t, who, qt, qd], i) => `<figure class="q" style="--qt:${qt};--qd:${qd};--r:${[-1.6, 1.3, -0.9, 1.7][i % 4]}deg;--i:${i}"><blockquote><p>${t}</p></blockquote>${who ? `<figcaption><i aria-hidden="true">${who[0]}</i>${who}</figcaption>` : ''}</figure>`).join('')}</div>
           ${d.quotesNote ? `<p class="q-note">${d.quotesNote}</p>` : ''}
+        </section>` : ''}
+        ${d.map ? `<section class="pp-map jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.map.title)}">
+          <h2>${d.map.title}</h2>
+          <figure class="pr-fig map-fig"><button type="button" class="pr-zoom" data-lb="map" aria-label="View larger: ${esc(d.map.alt)}"><img src="${d.map.src}" alt="${esc(d.map.alt)}" loading="lazy"></button><figcaption>${d.map.cap}</figcaption></figure>
         </section>` : ''}
         ${d.chart ? `<section class="pp-chart jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.chart.title)}">
           <h2>${d.chart.title}</h2>

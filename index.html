@@ -1688,7 +1688,6 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <figure class="pr-fig map-fig"><button type="button" class="pr-zoom" data-lb="map" aria-label="View larger: ${esc(d.map.alt)}"><img src="${d.map.src}" alt="${esc(d.map.alt)}" loading="lazy">${d.map.dot ? `<span class="map-dot" aria-hidden="true" style="left:${d.map.dot[0]}%;top:${d.map.dot[1]}%"></span>` : ''}</button><figcaption>${d.map.cap}</figcaption></figure>
         </section>` : ''}
         ${d.chart ? `<section class="pp-chart jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.chart.title)}">
-          <p class="qd-tag">Quantitative data</p>
           <h2>${d.chart.title}</h2>
           <div class="ch-wrap">
             <p class="ch-hero"><b>${d.chart.lead[0]}</b><span>${d.chart.lead[1]}</span></p>
@@ -1697,7 +1696,6 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <div class="ch-tip" role="status" hidden><b></b><span></span></div>
         </section>` : ''}
         ${d.hours ? `<section class="pp-chart pp-hours jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.hours.title)}">
-          <p class="qd-tag">Quantitative data</p>
           <h2>${d.hours.title}</h2>
           ${d.hours.rows.length === 1 ? `<div class="ch-wrap ch-tile"><p class="ch-hero"><b>${d.hours.rows[0][1]}</b><span><strong>${d.hours.unit}</strong>${d.hours.rows[0][0]}</span></p></div>`
           : `<div class="ch-wrap"><p class="ch-hero"><b>${d.hours.rows.reduce((a, r) => a + r[1], 0)}</b><span>${d.hours.unit} in total, across ${d.hours.rows.length} one-hour counts.</span></p><ul class="ch-bars" role="list">${(m => d.hours.rows.map(([k, v]) => `<li class="ch-row" tabindex="0" data-k="${esc(k)}" data-v="${v} ${v === 1 ? d.hours.unit.replace(/s$/, '') : d.hours.unit}" aria-label="${esc(k)}: ${v} ${v === 1 ? d.hours.unit.replace(/s$/, '') : d.hours.unit}"><span class="ch-k">${k}</span><span class="ch-track"><i style="--w:${(v / m * 100).toFixed(2)}%"></i><em>${v}</em></span></li>`).join(''))(Math.max(1, ...d.hours.rows.map(r => r[1])))}</ul></div>
@@ -1710,7 +1708,6 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/><rect x="20" y="10" width="110" height="9" rx="4.5" class="pm-shine"/><circle cx="141" cy="14.5" r="4" class="pm-shine"/>${pts.map(([x, y]) => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"><circle cy="-7.5" r="5"/><path d="M-8 9.5v-2.5a8 8 0 0 1 16 0v2.5a2.5 2.5 0 0 1-2.5 2.5h-11a2.5 2.5 0 0 1-2.5-2.5z"/></g></g>`).join('')}</svg>`;
           const unit = (u, n) => n === 1 ? u.replace(/s$/, '') : u;
           return `<section class="pp-poem jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(c.title)}">
-          <p class="qd-tag">Quantitative data</p>
           <h2>${c.title}</h2>
           <div class="pm">
             <svg class="pm-defs" aria-hidden="true" focusable="false"><defs><radialGradient id="pmB0" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#ff5fa2"/><stop offset="1" stop-color="#b81466"/></radialGradient><radialGradient id="pmB1" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#a877ff"/><stop offset="1" stop-color="#5a22bf"/></radialGradient><radialGradient id="pmB2" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#7f97ff"/><stop offset="1" stop-color="#2b41b8"/></radialGradient></defs></svg>

@@ -527,7 +527,7 @@
   .pp-why > p{margin:0;font:400 15.5px/1.55 var(--font);color:#3b1f45}
   .why-stats{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .why-stats li{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px;border-radius:20px;border:2px solid #fff;background:linear-gradient(180deg,#fff,color-mix(in srgb,var(--deep) 14%,#fff));box-shadow:0 8px 20px color-mix(in srgb,var(--deep) 22%,transparent), inset 0 2px 0 #fff}
-  .why-stats b{font:700 clamp(36px,7vw,46px)/1 var(--font);letter-spacing:-.03em;color:#cf6420;font-variant-numeric:tabular-nums}
+  .why-stats b{font:700 clamp(36px,7vw,46px)/1 var(--font);letter-spacing:-.03em;color:#8a4313;font-variant-numeric:tabular-nums}
   .why-stats span{font:500 14px/1.35 var(--font);color:var(--ink-soft)}
   @media (min-width:820px){ .project-page > .pp-why{grid-column:2;padding:24px 26px 26px} .pp-why h2{font-size:22px} }
   .pp-obs{border-radius:24px;padding:20px 18px 22px;display:flex;flex-direction:column;gap:12px}
@@ -554,8 +554,8 @@
   .ch-k{font:500 14px/1.25 var(--font);color:var(--ink-soft);text-align:right}
   .ch-row.top .ch-k{font-weight:700;color:#3b1f45}
   .ch-track{display:flex;align-items:center;gap:8px;min-width:0;border-left:1px solid #e6dfe8;padding-right:3.6em;position:relative}
-  .ch-track i{display:block;height:20px;width:var(--w);min-width:2px;border-radius:0 4px 4px 0;background:#9a93a3;transition:width .9s cubic-bezier(.2,.8,.2,1), filter .2s}
-  .ch-row.top .ch-track i{background:#cf6420}
+  .ch-track i{display:block;height:20px;width:var(--w);min-width:2px;border-radius:0 4px 4px 0;background:#b9b2c1;transition:width .9s cubic-bezier(.2,.8,.2,1), filter .2s}
+  .ch-row.top .ch-track i{background:#f2a45e}
   .ch-row:hover .ch-track i,.ch-row:focus-visible .ch-track i{filter:brightness(1.1)}
   .ch-track em{font:600 14px/1 var(--font);font-style:normal;color:#3b1f45;font-variant-numeric:tabular-nums;margin-right:-3.6em;white-space:nowrap}
   .ch-anim:not(.in) .ch-track i{width:0}
@@ -565,25 +565,25 @@
   .ch-tip span{font:500 12px/1.2 var(--font);opacity:.85}
   @media (min-width:820px){ .project-page > .pp-chart{grid-column:1 / -1;grid-row:6;padding:26px 30px 30px} .project-page > .pp-obs ~ .pp-chart{grid-row:7} .project-page > .pp-quotes ~ .pp-chart{grid-row:8} .pp-chart h2{font-size:22px} .ch-wrap{grid-template-columns:minmax(0,.8fr) minmax(0,2fr);align-items:center;gap:30px;padding:26px 30px} }
   @media (max-width:480px){ .ch-row{grid-template-columns:minmax(0,7.2em) minmax(0,1fr);gap:8px} .ch-k{font-size:13px} }
-  .qd-tag{align-self:flex-start;margin:0 0 -6px;padding:5px 12px;border-radius:999px;font:700 11.5px/1.2 var(--font);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#a04f14;box-shadow:0 3px 8px rgba(160,79,20,.3)}
-  .ch-wrap{border:2px solid #fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--deep) 45%,#fff), 0 14px 30px color-mix(in srgb,var(--deep) 40%,transparent)}
+  .qd-tag{align-self:flex-start;margin:0 0 -6px;padding:5px 12px;border-radius:999px;font:700 11.5px/1.2 var(--font);letter-spacing:.12em;text-transform:uppercase;color:#8a4313;background:color-mix(in srgb,var(--deep) 30%,#fff);box-shadow:inset 0 1px 0 #fff}
+  .ch-wrap{border:2px solid #fff;box-shadow:0 0 0 2px color-mix(in srgb,var(--deep) 30%,#fff), 0 10px 24px color-mix(in srgb,var(--deep) 26%,transparent)}
   .ch-hero{align-items:flex-start;gap:10px}
-  .ch-hero b{padding:.14em .32em .18em;border-radius:.3em;font-size:clamp(54px,10vw,84px);color:#fff;background:linear-gradient(160deg,#ee9547 0%,#cf6420 70%);box-shadow:inset 0 3px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(120,50,10,.22), 0 10px 22px rgba(207,100,32,.38)}
+  .ch-hero b{padding:.12em .3em .16em;border-radius:.3em;font-size:clamp(50px,9vw,72px);color:#8a4313;border:2px solid #fff;background:linear-gradient(180deg,#fff 0%,#ffe9d2 50%,#fbd0a6 100%);box-shadow:inset 0 3px 4px #fff, inset 0 -6px 12px color-mix(in srgb,var(--deep) 30%,transparent), 0 8px 18px color-mix(in srgb,var(--deep) 30%,transparent)}
   .ch-hero span{font-size:16px;color:#3b1f45}
-  .ch-track i{height:28px;border-radius:0 6px 6px 0}
-  .ch-track em{font:700 17px/1 var(--font)}
+  .ch-track i{height:24px;border-radius:0 6px 6px 0}
+  .ch-track em{font:700 16px/1 var(--font)}
   .ch-hero b{white-space:nowrap}
-  @media (min-width:820px){ .ch-k{font-size:15px} .ch-hero b{font-size:clamp(52px,5.2vw,68px)} .pp-chart .ch-wrap:not(.ch-tile):not(.ch-only){grid-template-columns:minmax(0,1fr) minmax(0,2fr)} }
+  @media (min-width:820px){ .ch-k{font-size:15px} .ch-hero b{font-size:clamp(48px,4.8vw,62px)} .pp-chart .ch-wrap:not(.ch-tile):not(.ch-only){grid-template-columns:minmax(0,1fr) minmax(0,2fr)} }
   .ch-row{padding:6px}
-  .ch-tile .ch-hero b{color:#fff}
+  .ch-tile .ch-hero b{color:#8a4313}
   .pp-hours .ch-row{grid-template-columns:minmax(0,11em) minmax(0,1fr)}
   @media (max-width:480px){ .pp-hours .ch-row{grid-template-columns:minmax(0,8.6em) minmax(0,1fr)} }
   .ch-tile{display:block;width:fit-content;min-width:min(260px,100%)}
   .ch-tile .ch-hero{flex-direction:row;align-items:center;gap:16px}
-  .ch-tile .ch-hero b{font-size:clamp(56px,10vw,76px);color:#cf6420}
+  .ch-tile .ch-hero b{font-size:clamp(56px,10vw,76px);color:#8a4313}
   .ch-tile .ch-hero span{display:flex;flex-direction:column;gap:3px;max-width:none}
   .ch-tile .ch-hero strong{font:700 20px/1.1 var(--font);color:#3b1f45}
-  .ch-hours .ch-track i,.pp-hours .ch-track i{background:#cf6420}
+  .ch-hours .ch-track i,.pp-hours .ch-track i{background:#f2a45e}
   @media (min-width:820px){ .project-page > .pp-chart ~ .pp-hours{grid-row:9} .ch-wrap.ch-tile,.ch-wrap.ch-only{grid-template-columns:minmax(0,1fr)} }
   .pp-map{border-radius:24px;padding:20px 18px 22px;display:flex;flex-direction:column;gap:12px}
   .pp-map h2{margin:0;font:700 19px/1.1 var(--serif);letter-spacing:-.01em;color:#8a2d63}
@@ -643,8 +643,8 @@
   .sol-scores dd{margin:0;display:flex;align-items:center;gap:9px}
   .sol-scores em{width:66px;font:700 13.5px/1.2 var(--font);font-style:normal;color:#3b1f45}
   .sol-pips{display:flex;gap:2px}
-  .sol-pips i{width:20px;height:9px;border-radius:5px;background:#e9e2ea}
-  .sol-pips[data-n="1"] i:nth-child(-n+1),.sol-pips[data-n="2"] i:nth-child(-n+2),.sol-pips[data-n="3"] i:nth-child(-n+3){background:#cf6420}
+  .sol-pips i{width:20px;height:9px;border-radius:5px;background:#efeaf0}
+  .sol-pips[data-n="1"] i:nth-child(-n+1),.sol-pips[data-n="2"] i:nth-child(-n+2),.sol-pips[data-n="3"] i:nth-child(-n+3){background:#f2a45e}
   .sol-list li{gap:12px}
   @media (min-width:820px){ .project-page > .pp-obs.pp-sol{grid-row:12} }
   .pm-head,.pm-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px;margin:0}
@@ -1593,7 +1593,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         notes:{ title:'Convenience and quality', intro:'Three things stuck out to me:', points:['The shelves were spread out well and easy to reach (including my friend who is 60 in).','Sections are organized by novelty, school supplies, and personal needs.','For such a well-organized space, not many people come in here.'] },
         quotes:[['You can find anything you need here, pretty much.','Student','#ffd6e7','#ff6fa8'],['I wish it weren’t in the back of the building.','Classmate','#e4dcff','#9b7df0'],['It’s in the middle of nowhere!','Classmate','#cfeeff','#4fa9e6'],['Usually only five customers come in during my shift.','Cashier','#fff0b0','#e0ae1c'],['Stock is decent, prices could be better.','Student parent','#d3f5e3','#3dbb86'],['It’s overpriced, so I never go in. Also, the time I was looking for it, I got lost.','Friend','#ffe0cc','#f08a4b']],
         map:{ title:'Where it is', src:'img/e4b1cedf6c0b.png', alt:'Campus map of Beatty Hall, building 3, with a red dot toward the back of the building, next to the Nelson Recreation Center and CEIS', cap:'The red dot marks the bookstore, toward the back of Beatty Hall.', dot:[30.43,60.31] },
-        chart:{ title:'Reason for visit', lead:['58.3%','Supplies was the top reason, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
+        chart:{ title:'Reason for visit', lead:['58.3%','Supplies were the top reason, more than every other reason combined.'], rows:[['Supplies',58.3],['Textbook/Supplies',16.7],['Parent Weekend',8.3],['The Holidays',8.3],['“End of Year”',8.3]] },
         hours:{ title:'Customer Data', unit:'customers', note:'On Wednesday, 9–10 AM, <strong>we were the only two customers</strong>.<br>Average checkout time: about <strong>1 minute and fifteen seconds</strong>.', rows:[['Wednesday, 9–10 AM',2],['Thursday, 10–11 AM',1],['Monday, 12–1 PM',3]] },
         conclusion: {title:'Conclusions', lead:'The Bookstore should be more available for students.', text:'It\u2019s not easy to find, and it can be rather costly. Simple solutions can easily fix its mysterious location. Perhaps then, more customers will be drawn to it.'},
         bias: {title:'Potential bias', items:[

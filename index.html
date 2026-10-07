@@ -565,6 +565,17 @@
   .ch-tip span{font:500 12px/1.2 var(--font);opacity:.85}
   @media (min-width:820px){ .project-page > .pp-chart{grid-column:1 / -1;grid-row:6;padding:26px 30px 30px} .project-page > .pp-obs ~ .pp-chart{grid-row:7} .project-page > .pp-quotes ~ .pp-chart{grid-row:8} .pp-chart h2{font-size:22px} .ch-wrap{grid-template-columns:minmax(0,.8fr) minmax(0,2fr);align-items:center;gap:30px;padding:26px 30px} }
   @media (max-width:480px){ .ch-row{grid-template-columns:minmax(0,7.2em) minmax(0,1fr);gap:8px} .ch-k{font-size:13px} }
+  .qd-tag{align-self:flex-start;margin:0 0 -6px;padding:5px 12px;border-radius:999px;font:700 11.5px/1.2 var(--font);letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#a04f14;box-shadow:0 3px 8px rgba(160,79,20,.3)}
+  .ch-wrap{border:2px solid #fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--deep) 45%,#fff), 0 14px 30px color-mix(in srgb,var(--deep) 40%,transparent)}
+  .ch-hero{align-items:flex-start;gap:10px}
+  .ch-hero b{padding:.14em .32em .18em;border-radius:.3em;font-size:clamp(54px,10vw,84px);color:#fff;background:linear-gradient(160deg,#ee9547 0%,#cf6420 70%);box-shadow:inset 0 3px 0 rgba(255,255,255,.35), inset 0 -6px 12px rgba(120,50,10,.22), 0 10px 22px rgba(207,100,32,.38)}
+  .ch-hero span{font-size:16px;color:#3b1f45}
+  .ch-track i{height:28px;border-radius:0 6px 6px 0}
+  .ch-track em{font:700 17px/1 var(--font)}
+  .ch-hero b{white-space:nowrap}
+  @media (min-width:820px){ .ch-k{font-size:15px} .ch-hero b{font-size:clamp(52px,5.2vw,68px)} .pp-chart .ch-wrap:not(.ch-tile):not(.ch-only){grid-template-columns:minmax(0,1fr) minmax(0,2fr)} }
+  .ch-row{padding:6px}
+  .ch-tile .ch-hero b{color:#fff}
   .pp-hours .ch-row{grid-template-columns:minmax(0,11em) minmax(0,1fr)}
   @media (max-width:480px){ .pp-hours .ch-row{grid-template-columns:minmax(0,8.6em) minmax(0,1fr)} }
   .ch-tile{display:block;width:fit-content;min-width:min(260px,100%)}
@@ -1677,6 +1688,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <figure class="pr-fig map-fig"><button type="button" class="pr-zoom" data-lb="map" aria-label="View larger: ${esc(d.map.alt)}"><img src="${d.map.src}" alt="${esc(d.map.alt)}" loading="lazy">${d.map.dot ? `<span class="map-dot" aria-hidden="true" style="left:${d.map.dot[0]}%;top:${d.map.dot[1]}%"></span>` : ''}</button><figcaption>${d.map.cap}</figcaption></figure>
         </section>` : ''}
         ${d.chart ? `<section class="pp-chart jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.chart.title)}">
+          <p class="qd-tag">Quantitative data</p>
           <h2>${d.chart.title}</h2>
           <div class="ch-wrap">
             <p class="ch-hero"><b>${d.chart.lead[0]}</b><span>${d.chart.lead[1]}</span></p>
@@ -1685,6 +1697,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           <div class="ch-tip" role="status" hidden><b></b><span></span></div>
         </section>` : ''}
         ${d.hours ? `<section class="pp-chart pp-hours jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.hours.title)}">
+          <p class="qd-tag">Quantitative data</p>
           <h2>${d.hours.title}</h2>
           ${d.hours.rows.length === 1 ? `<div class="ch-wrap ch-tile"><p class="ch-hero"><b>${d.hours.rows[0][1]}</b><span><strong>${d.hours.unit}</strong>${d.hours.rows[0][0]}</span></p></div>`
           : `<div class="ch-wrap"><p class="ch-hero"><b>${d.hours.rows.reduce((a, r) => a + r[1], 0)}</b><span>${d.hours.unit} in total, across ${d.hours.rows.length} one-hour counts.</span></p><ul class="ch-bars" role="list">${(m => d.hours.rows.map(([k, v]) => `<li class="ch-row" tabindex="0" data-k="${esc(k)}" data-v="${v} ${v === 1 ? d.hours.unit.replace(/s$/, '') : d.hours.unit}" aria-label="${esc(k)}: ${v} ${v === 1 ? d.hours.unit.replace(/s$/, '') : d.hours.unit}"><span class="ch-k">${k}</span><span class="ch-track"><i style="--w:${(v / m * 100).toFixed(2)}%"></i><em>${v}</em></span></li>`).join(''))(Math.max(1, ...d.hours.rows.map(r => r[1])))}</ul></div>
@@ -1697,6 +1710,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/><rect x="20" y="10" width="110" height="9" rx="4.5" class="pm-shine"/><circle cx="141" cy="14.5" r="4" class="pm-shine"/>${pts.map(([x, y]) => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"><circle cy="-7.5" r="5"/><path d="M-8 9.5v-2.5a8 8 0 0 1 16 0v2.5a2.5 2.5 0 0 1-2.5 2.5h-11a2.5 2.5 0 0 1-2.5-2.5z"/></g></g>`).join('')}</svg>`;
           const unit = (u, n) => n === 1 ? u.replace(/s$/, '') : u;
           return `<section class="pp-poem jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(c.title)}">
+          <p class="qd-tag">Quantitative data</p>
           <h2>${c.title}</h2>
           <div class="pm">
             <svg class="pm-defs" aria-hidden="true" focusable="false"><defs><radialGradient id="pmB0" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#ff5fa2"/><stop offset="1" stop-color="#b81466"/></radialGradient><radialGradient id="pmB1" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#a877ff"/><stop offset="1" stop-color="#5a22bf"/></radialGradient><radialGradient id="pmB2" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#fff"/><stop offset=".24" stop-color="#7f97ff"/><stop offset="1" stop-color="#2b41b8"/></radialGradient></defs></svg>

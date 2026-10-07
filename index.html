@@ -608,7 +608,7 @@
   .pm-num b{font:700 clamp(44px,8vw,64px)/1 var(--font);letter-spacing:-.03em;color:#3b1f45;font-variant-numeric:tabular-nums}
   .pm-full .pm-num b{color:var(--rn)}
   .pm-key{margin:0;display:flex;align-items:center;justify-content:center;gap:8px;font:500 12.5px/1 var(--font);color:var(--ink-soft)}
-  .pm-key i{width:11px;height:11px;border-radius:50%;background:rgba(194,49,127,.6);box-shadow:0 0 5px #ff2f8a}
+  .pm-key svg{width:12px;height:17px;fill:rgba(194,49,127,.6);filter:drop-shadow(0 0 4px #ff2f8a);overflow:visible}
   .pm-lines{margin:4px auto 0;display:flex;flex-direction:column;gap:6px;text-align:center;font:600 italic clamp(18px,2.2vw,23px)/1.3 var(--serif);color:#3b1f45;text-wrap:balance}
   .pm-lines span:first-child{font:700 12.5px/1.3 var(--font);font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#8a2d63;margin-bottom:4px}
   @media (min-width:820px){ .project-page > .pp-poem{grid-column:1 / -1;grid-row:11;padding:26px 30px 34px} .pp-poem h2{font-size:22px} .pm{padding:28px 34px 22px;gap:18px} .pm-rooms{grid-template-columns:1fr 1fr;gap:40px} }
@@ -1687,8 +1687,8 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         </section>` : ''}
         ${d.contrast ? (c => { const mk = seed => { let a = seed; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
           const FEW = { 1: [[252, 150]], 2: [[118, 172], [286, 92]], 3: [[96, 158], [248, 84], [318, 196]] };
-          const scatter = (n, rnd) => { const pts = []; let guard = 0; while (pts.length < n && guard++ < 40000) { const x = 30 + rnd() * 340, y = 30 + rnd() * 200; if (pts.every(p => Math.hypot(p[0] - x, p[1] - y) > 31)) pts.push([x, y]); } return pts; };
-          const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/><rect x="20" y="10" width="110" height="9" rx="4.5" class="pm-shine"/><circle cx="141" cy="14.5" r="4" class="pm-shine"/>${pts.map(([x, y]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9.5" class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"/>`).join('')}</svg>`;
+          const scatter = (n, rnd) => { const pts = []; let guard = 0; while (pts.length < n && guard++ < 40000) { const x = 30 + rnd() * 340, y = 35 + rnd() * 196; if (pts.every(p => Math.hypot(p[0] - x, p[1] - y) > 31)) pts.push([x, y]); } return pts; };
+          const room = (pts, rnd) => `<svg viewBox="0 0 400 260" aria-hidden="true" class="pm-svg"><rect x="3" y="3" width="394" height="254" rx="26" class="pm-room"/><rect x="20" y="10" width="110" height="9" rx="4.5" class="pm-shine"/><circle cx="141" cy="14.5" r="4" class="pm-shine"/>${pts.map(([x, y]) => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="pm-dot" style="--d:${(rnd() * -6).toFixed(2)}s;--dx:${(rnd() * 8 - 4).toFixed(1)}px;--dy:${(rnd() * 8 - 4).toFixed(1)}px"><circle cy="-7.5" r="5"/><path d="M-8 9.5v-2.5a8 8 0 0 1 16 0v2.5a2.5 2.5 0 0 1-2.5 2.5h-11a2.5 2.5 0 0 1-2.5-2.5z"/></g></g>`).join('')}</svg>`;
           const unit = (u, n) => n === 1 ? u.replace(/s$/, '') : u;
           return `<section class="pp-poem jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(c.title)}">
           <h2>${c.title}</h2>
@@ -1701,7 +1701,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
               <div class="pm-side pm-full">${room(scatter(n, rnd), rnd)}<p class="pm-num"><b>${label}</b>${c.units[0]}</p></div>
               <div class="pm-side pm-empty">${room(FEW[m] || scatter(m, rnd), rnd)}<p class="pm-num"><b>${m}</b>${unit(c.units[1], m)}</p></div>
             </figure>`; }).join('')}
-            <p class="pm-key"><i></i>one dot is one person</p>
+            <p class="pm-key"><svg viewBox="-10 -14 20 28" aria-hidden="true"><circle cy="-7.5" r="5"/><path d="M-8 9.5v-2.5a8 8 0 0 1 16 0v2.5a2.5 2.5 0 0 1-2.5 2.5h-11a2.5 2.5 0 0 1-2.5-2.5z"/></svg>one figure is one person</p>
           </div>
           <p class="pm-lines">${c.lines.map(l => `<span>${l}</span>`).join('')}</p>
         </section>`; })(d.contrast) : ''}

@@ -780,6 +780,7 @@
     font:600 13px/1.2 var(--serif);font-style:italic;letter-spacing:.01em;color:#6a3f86;
     transition:opacity .6s ease, transform .6s ease;animation:psst 3.2s ease-in-out infinite}
   .ice-hint.gone{opacity:0;transform:translateY(6px);animation:none}
+  html.proj-bg .ice-hint{opacity:0;visibility:hidden;animation:none}
   @keyframes psst{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
   @media (prefers-reduced-motion:reduce){ .ice-hint{animation:none} }
   @media (max-width:560px){ .ice-hint{font-size:12px;padding:8px 12px;left:12px} }
@@ -1061,6 +1062,10 @@
 
 
 <p class="ice-hint" id="ice-hint" aria-hidden="true">Psst… Drag the ice cubes and tap the bubbles…</p>
+<button class="music-btn read-btn" id="scroll-btn" type="button" aria-pressed="false" aria-label="Scroll this page automatically">
+  <span class="mb-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15"/><path d="M6 13l6 6 6-6"/></svg></span>
+  <span class="mb-label">Auto scroll</span>
+</button>
 <button class="music-btn read-btn" id="read-btn" type="button" aria-pressed="false" aria-label="Read this page out loud">
   <span class="mb-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span>
   <span class="mb-label">Read aloud</span>
@@ -2180,6 +2185,31 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     addEventListener('hashchange', () => { if (on) stop(); });
     addEventListener('keydown', e => { if (e.key === 'Escape' && on) stop(); });
     if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => {};
+  })();
+  /* ---------- auto scroll: glides down the page at reading pace so every bit of text passes by ---------- */
+  (function(){
+    const btn = document.getElementById('scroll-btn'), read = document.getElementById('read-btn'), lofi = document.getElementById('music-btn');
+    if (!btn) return;
+    const place = () => { const a = (read && !read.hidden) ? read : lofi; const r = a.getBoundingClientRect(); btn.style.right = (innerWidth - r.left + 8) + 'px'; };
+    place(); addEventListener('resize', place); const ro = new ResizeObserver(place); ro.observe(lofi); if (read) ro.observe(read);
+    const SPEED = 55;   // pixels per second
+    let on = false, raf = 0, last = 0, pos = 0;
+    const max = () => document.documentElement.scrollHeight - innerHeight;
+    function stop() { on = false; cancelAnimationFrame(raf); btn.setAttribute('aria-pressed', 'false'); btn.setAttribute('aria-label', 'Scroll this page automatically'); btn.querySelector('.mb-label').textContent = 'Auto scroll'; }
+    function tick(t) { if (!on) return;
+      const dt = Math.min(.1, (t - last) / 1000); last = t; pos += SPEED * dt;
+      if (pos >= max() - 1) { scrollTo({ top: max(), behavior: 'instant' }); return stop(); }
+      scrollTo({ top: pos, behavior: 'instant' }); raf = requestAnimationFrame(tick); }
+    function start() {
+      if (read && read.getAttribute('aria-pressed') === 'true') read.click();
+      if (scrollY >= max() - 2) scrollTo({ top: 0, behavior: 'instant' });
+      on = true; pos = scrollY; last = performance.now(); btn.setAttribute('aria-pressed', 'true'); btn.setAttribute('aria-label', 'Stop scrolling'); btn.querySelector('.mb-label').textContent = 'Stop';
+      raf = requestAnimationFrame(tick); }
+    btn.addEventListener('click', () => on ? stop() : start());
+    if (read) read.addEventListener('click', () => { if (on) stop(); });
+    ['wheel', 'touchmove'].forEach(ev => addEventListener(ev, () => { if (on) stop(); }, { passive: true }));
+    addEventListener('keydown', e => { if (on && ['Escape', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key) && e.target !== btn) stop(); });
+    addEventListener('hashchange', () => { if (on) stop(); });
   })();
   /* ---------- soft lofi loop, made live in the browser (no audio files); off until you press play ---------- */
   (function(){

@@ -733,6 +733,12 @@
   .mb-bars i:nth-child(2){animation-delay:-.35s}.mb-bars i:nth-child(3){animation-delay:-.7s}
   @keyframes eq{0%,100%{height:3px}50%{height:12px}}
   .music-btn[aria-pressed="true"] .mb-bars{display:inline-flex}
+  .music-btn{right:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));gap:6px;padding:5px 10px 5px 5px;font:700 11.5px/1 var(--font);background:rgba(255,255,255,.55);box-shadow:0 3px 10px rgba(165,124,245,.14), inset 0 1px 0 #fff;opacity:.6;transition:transform .2s ease, opacity .2s ease}
+  .music-btn:hover,.music-btn:focus-visible,.music-btn[aria-pressed="true"]{opacity:1}
+  .mb-icon{width:20px;height:20px}
+  .mb-icon svg{width:11px;height:11px}
+  .mb-bars{height:10px}
+  @media (max-width:560px){ .read-btn{padding:5px} html body .ice-hint{bottom:calc(52px + env(safe-area-inset-bottom, 0px))} }
   @media (prefers-reduced-motion:reduce){ .mb-bars i{animation:none;height:8px} }
   @media (min-width:820px){ .project-page.project-page > .pp-process{grid-row:6} .project-page.project-page > .pp-process ~ .pp-3d{grid-row:7} .project-page.project-page > .pp-process ~ .pp-sketches{grid-row:8} .project-page.project-page > .pp-process ~ .pp-3d ~ .pp-sketches{grid-row:8} }
   .pr-sk{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -1609,7 +1615,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
           ['Signage','Beatty Hall does not have enough signage for the bookstore. Larger, more colorful signs at the entrances would make it easier to find.',[3,3,1]],
           ['Coupons and/or deals','Many who have been in the store complain that prices are too high. A coupon or discount for multiple items or upperclassmen would draw in more customers.',[3,2,2]],
           ['Social media traction','The bookstore has very little presence or photos online. Adding photos, evident directions, and small pop-up events would draw more customers.',[3,3,2]]]},
-      contrast:{ title:'Same floor, same hour', where:'Bottom of Beatty Hall', cols:['Recreation area','Wentworth Bookstore'], units:['students','customers'], rows:[['Wednesday, 9–10 AM',14,'14',2],['Thursday, 10–11 AM',21,'21',1],['Monday, 12–1 PM',45,'45+',3]], lines:['Same building. Same floor. Same hour.','Fourteen, then twenty-one, then more than forty-five gathered in one room.','Two, then one, then three walked through the other door.'] },
+      contrast:{ title:'Same floor, same hour', where:'Bottom of Beatty Hall', cols:['Recreation area','Wentworth Bookstore'], units:['students','customers'], rows:[['Wednesday, 9–10 AM',14,'14',2],['Thursday, 10–11 AM',21,'21',1],['Monday, 12–1 PM',45,'45+',3]] },
         quotesNote:'This feedback confirmed my observations. Two reasons define the store’s low attendance: <strong>location</strong> and <strong>prices</strong>.' },
     };
     const keys = ['juice','drill','watch','candy','sweet','medigo'];
@@ -1725,7 +1731,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
             </figure>`; }).join('')}
             <p class="pm-key"><svg viewBox="-10 -14 20 28" aria-hidden="true"><circle cy="-7.5" r="5"/><path d="M-8 9.5v-2.5a8 8 0 0 1 16 0v2.5a2.5 2.5 0 0 1-2.5 2.5h-11a2.5 2.5 0 0 1-2.5-2.5z"/></svg>one figure is one person</p>
           </div>
-          <p class="pm-lines">${c.lines.map(l => `<span>${l}</span>`).join('')}</p>
+          ${c.lines && c.lines.length ? `<p class="pm-lines">${c.lines.map(l => `<span>${l}</span>`).join('')}</p>` : ''}
         </section>`; })(d.contrast) : ''}
         ${d.solutions ? `<section class="pp-obs pp-sol jelly" style="--tint:color-mix(in srgb, ${d.tint} 45%, #fff)" aria-label="${esc(d.solutions.title)}">
           <h2>${d.solutions.title}</h2>

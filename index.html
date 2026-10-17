@@ -252,7 +252,7 @@
   /* half the page sits in a drink */
   .drink{position:fixed;left:0;right:0;bottom:0;height:100vh;height:100dvh;pointer-events:none;z-index:0}
   .drink canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .drink,.blobs{transition:filter .5s ease}
+  .drink,.blobs{will-change:filter}
   html.proj-bg .drink,html.proj-bg .blobs{filter:blur(12px)}
   @media (prefers-reduced-motion:reduce){ .drink,.blobs{transition:none} }
   .drink .liquid{position:absolute;left:0;right:0;top:40px;bottom:0;overflow:hidden;
@@ -1235,7 +1235,9 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
         { transform: `translate(${(Math.random() - .5) * 30}px, ${-120 - Math.random() * 60}px) rotate(${(Math.random() - .5) * 10}deg) scale(.95)`, opacity: 0 }
       ], { duration: 620, delay: i * 50, easing: 'cubic-bezier(.45,.05,.55,.95)', fill: 'forwards' }));
       const done = out.length ? leave[leave.length - 1].finished : Promise.resolve();
-      done.then(() => {
+      let ready = Promise.resolve();   // start decoding the next page's main image while the current page floats away
+      try { const src = window.__heroSrc && window.__heroSrc(location.hash.slice(1)); if (src) { const im = new Image(); im.src = src; window.__preImg = im; if (im.decode) ready = im.decode().catch(() => {}); } } catch (e) {}
+      done.then(() => Promise.race([ready, new Promise(r => setTimeout(r, 350))])).then(() => {
         fn();
         leave.forEach(a => a.cancel());
         const to = current();
@@ -1781,7 +1783,12 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       const ql = page.querySelector('.q-list');
       if (ql && !reduce && 'IntersectionObserver' in window) { ql.classList.add('q-anim'); const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .35 }); ql.querySelectorAll('.q').forEach(q => io.observe(q)); }
       if (window._m3stop) { window._m3stop(); window._m3stop = null; }
-      if (d.model) { const sets = [d.model, d.model2].filter(Boolean), stops = [...page.querySelectorAll('.m3-stage')].map((el, i) => sets[i] && mount3D(el, sets[i])); window._m3stop = () => stops.forEach(f => f && f()); }
+      if (d.model) { const sets = [d.model, d.model2].filter(Boolean), stops = [...page.querySelectorAll('.m3-stage')].map((el, i) => { if (!sets[i]) return null; let stop = null, dead = false;   // build the 3D model only once the page has settled and the viewer is near the screen
+        const go = () => { if (!dead && !stop) stop = mount3D(el, sets[i]) || (() => {}); };
+        const later = () => setTimeout(() => window.requestIdleCallback ? requestIdleCallback(go, { timeout: 1000 }) : go(), 750);
+        if (!('IntersectionObserver' in window)) { later(); return () => { dead = true; stop && stop(); }; }
+        const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); later(); } }, { rootMargin: '300px 0px' }); io.observe(el);
+        return () => { dead = true; io.disconnect(); stop && stop(); }; }); window._m3stop = () => stops.forEach(f => f && f()); }
     }
 
     function wireGallery() {
@@ -1826,6 +1833,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     }
 
     let lastKey = null;
+    window.__heroSrc = key => { const d = P[key]; if (!d) return null; const g = d.groups && d.groups[0]; const r = (g ? g.renders : d.renders) || []; return r[0] && r[0][0] || null; };
     function show() {
       const key = location.hash.slice(1);
       document.documentElement.classList.toggle('proj-bg', !!P[key]);

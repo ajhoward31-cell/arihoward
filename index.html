@@ -710,6 +710,8 @@
   .lightbox figcaption{font:600 14px/1.4 var(--font);color:#fff}
   .lb-close{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:1.5px solid #fff;background:rgba(255,255,255,.2);color:#fff;font-size:26px;line-height:1}
   .lb-close:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .ph-grid .dr-item img{border-radius:0}
+  @media (min-width:820px){ .dr-grid.ph-grid{columns:2 300px} }
   @media (min-width:820px){ .dr-grid{columns:3 220px;column-gap:20px} .dr-item{margin-bottom:20px} .dr-head{padding:30px 36px} }
   /* background music toggle */
   @media (max-width:560px){ .read-btn .mb-label{display:none} .read-btn{padding:9px 10px} html body .ice-hint{bottom:calc(70px + env(safe-area-inset-bottom, 0px))} }
@@ -865,6 +867,7 @@
       <button class="tab" id="tab-aboutme">About</button>
       <button class="tab" id="tab-work">Work</button>
       <button class="tab" id="tab-drawings">Drawings</button>
+      <button class="tab" id="tab-photos">Photography</button>
       <button class="tab" id="tab-resume">Résumé</button>
     </div>
     <div class="me" aria-hidden="true"></div>
@@ -1041,6 +1044,15 @@
     </section>
   </article>
 </section>
+<section class="drawings-page" id="photos-page" hidden aria-labelledby="ph-title">
+  <button class="back" type="button" id="photos-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Home</button>
+  <header class="dr-head jelly">
+    <h1 id="ph-title">Photography</h1>
+    <p>Streets, forms and quiet places I've photographed.</p>
+  </header>
+  <div class="dr-grid ph-grid"><button type="button" class="dr-item ph-item" data-ph="img/510b5143d362.jpg" data-cap="Eros, Piccadilly Circus, London"><img src="img/510b5143d362.jpg" alt="Bronze statue of Eros mid-flight with wings spread and bow drawn, against a white sky" loading="lazy"><span>Eros, Piccadilly Circus, London</span></button><button type="button" class="dr-item ph-item" data-ph="img/3c44d1aee572.jpg" data-cap="Conduit Court, Covent Garden"><img src="img/3c44d1aee572.jpg" alt="A narrow brick lane with a living green wall of plants, iron lanterns and people walking" loading="lazy"><span>Conduit Court, Covent Garden</span></button><button type="button" class="dr-item ph-item" data-ph="img/49532f5163ac.jpg" data-cap="Chinatown lanterns, London"><img src="img/49532f5163ac.jpg" alt="Rows of red paper lanterns strung above a street in Chinatown, London" loading="lazy"><span>Chinatown lanterns, London</span></button><button type="button" class="dr-item ph-item" data-ph="img/f8ede34db330.jpg" data-cap="Chinatown gate, London"><img src="img/f8ede34db330.jpg" alt="The ornate painted Chinatown gate beside a red brick pub and hanging shop signs" loading="lazy"><span>Chinatown gate, London</span></button><button type="button" class="dr-item ph-item" data-ph="img/9bc4d078e8cf.jpg" data-cap="Reflections, City of London"><img src="img/9bc4d078e8cf.jpg" alt="A white curved office facade whose windows reflect gold-tipped church spires" loading="lazy"><span>Reflections, City of London</span></button><button type="button" class="dr-item ph-item" data-ph="img/5a22eb31cf02.jpg" data-cap="Boardwalk, off-season"><img src="img/5a22eb31cf02.jpg" alt="Black and white photo of a shuttered boardwalk snack bar above an empty sandy dune" loading="lazy"><span>Boardwalk, off-season</span></button><button type="button" class="dr-item ph-item" data-ph="img/3a5783cb8301.jpg" data-cap="Do Not Enter"><img src="img/3a5783cb8301.jpg" alt="Black and white photo of a sign pole with a Do Not Enter sign at the edge of an empty beach" loading="lazy"><span>Do Not Enter</span></button></div>
+</section>
+
 <section class="drawings-page" id="drawings-page" hidden aria-labelledby="dr-title">
   <button class="back" type="button" id="drawings-back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg> Home</button>
   <header class="dr-head jelly">
@@ -1200,7 +1212,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
   /* ---------- float-away page transition ---------- */
   const starWipe = (() => {
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const views = () => [document.querySelector('main.wrap'), document.getElementById('project-page'), document.getElementById('about-page'), document.getElementById('resume-page'), document.getElementById('drawings-page')];
+    const views = () => [document.querySelector('main.wrap'), document.getElementById('project-page'), document.getElementById('about-page'), document.getElementById('resume-page'), document.getElementById('drawings-page'), document.getElementById('photos-page')];
     const current = () => views().find(v => v && !v.hidden);
     const pieces = view => {
       const all = [...view.querySelectorAll('.jelly, .section-head, .back, .pp-more > h2, .details')];
@@ -1804,6 +1816,9 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
       document.documentElement.classList.toggle('proj-bg', !!P[key]);
       const about = document.getElementById('about-page');
       const drawings = document.getElementById('drawings-page');
+      const photos = document.getElementById('photos-page');
+      if (key === 'photography') { photos.hidden = false; drawings.hidden = true; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('photos-back').focus({ preventScroll: true }); return; }
+      photos.hidden = true;
       if (key === 'drawings') { drawings.hidden = false; document.getElementById('resume-page').hidden = true; about.hidden = true; page.hidden = true; home.hidden = true; scrollTo(0, 0); document.getElementById('drawings-back').focus({ preventScroll: true }); return; }
       drawings.hidden = true;
       const resume = document.getElementById('resume-page');
@@ -1839,6 +1854,9 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     document.getElementById('tab-aboutme').onclick = () => { location.hash = 'about'; };
     document.getElementById('tab-resume').onclick = () => { location.hash = 'resume'; };
     document.getElementById('tab-drawings').onclick = () => { location.hash = 'drawings'; };
+    document.getElementById('tab-photos').onclick = () => { location.hash = 'photography'; };
+    document.getElementById('photos-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
+    document.querySelectorAll('.ph-item').forEach(b => b.onclick = () => { const lb = document.getElementById('lightbox'), im = document.getElementById('lb-img'); im.src = b.dataset.ph; im.alt = b.querySelector('img').alt; document.getElementById('lb-cap').textContent = b.dataset.cap; lb.hidden = false; lb.querySelector('.lb-close').focus(); });
     document.getElementById('drawings-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     document.getElementById('resume-back').onclick = () => starWipe(() => { history.pushState('', '', location.pathname + location.search); show(); scrollTo(0, 0); });
     addEventListener('hashchange', () => starWipe(show)); show();
@@ -2159,7 +2177,7 @@ window.sharedAC = () => { if (!window.__sharedAC) { const A = window.AudioContex
     const place = () => { const r = lofi.getBoundingClientRect(); btn.style.right = (innerWidth - r.left + 8) + 'px'; };
     place(); addEventListener('resize', place); new ResizeObserver(place).observe(lofi);
     let on = false, cur = null;
-    const view = () => [...document.querySelectorAll('#project-page, #resume-page, #drawings-page, #about-page')].find(el => !el.hidden) || document.querySelector('main.wrap');
+    const view = () => [...document.querySelectorAll('#project-page, #resume-page, #drawings-page, #photos-page, #about-page')].find(el => !el.hidden) || document.querySelector('main.wrap');
     const SEL = 'h1, h2, h3, h4, p, li, figcaption, dt, dd, .fact, .dr-item > span, .cv-item h3';
     const blocks = () => { const seen = new Set(); return [...view().querySelectorAll(SEL)].filter(el => {
         if (el.closest('[hidden], .gal-stars, .m3-fallback, .ice-hint, .cv-contact, button.music-btn')) return false;
